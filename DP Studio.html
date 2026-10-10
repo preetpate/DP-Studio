@@ -1,0 +1,753 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>DP Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single-column dark studio page, glass nav, wide hero with floating browser, card grids, modal inquiry form. */
+:root{
+  --bg:#080808;
+  --surface:#111111;
+  --surface-2:#161618;
+  --fg:#ffffff;
+  --muted:#a1a1aa;
+  --line:rgba(255,255,255,.10);
+  --a1:#7c3aed;
+  --a2:#2563eb;
+  --grad:linear-gradient(135deg,#7c3aed,#2563eb);
+  --ok:#34d399;
+  --font-display:'Manrope',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --font-body:'Manrope',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:16px;line-height:1.6;margin:0;padding-inline:0;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,p{margin:0}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;letter-spacing:-.02em;line-height:1.08}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid #a78bfa;outline-offset:3px;border-radius:8px}
+.wrap{width:100%;max-width:1160px;margin-inline:auto;padding-inline:20px}
+section{padding-block:88px;position:relative}
+.eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.sec-head{display:flex;flex-direction:column;gap:14px;max-width:640px;margin-bottom:48px}
+.sec-head h2{font-size:clamp(30px,5vw,48px);font-weight:800}
+.sec-head p{color:var(--muted);font-size:17px}
+.grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 22px;border-radius:14px;font-weight:700;font-size:15px;border:1px solid var(--line);background:transparent;transition:transform .2s,box-shadow .2s,border-color .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--grad);border-color:transparent;box-shadow:0 10px 30px -10px rgba(124,58,237,.7)}
+.btn-primary:hover{box-shadow:0 14px 36px -10px rgba(37,99,235,.8)}
+.btn-ghost:hover{border-color:rgba(255,255,255,.3)}
+.btn-sm{padding:10px 16px;border-radius:12px;font-size:14px}
+
+/* nav */
+.nav{position:fixed;inset:0 0 auto 0;z-index:50;padding:14px 0;padding-top:calc(14px + env(safe-area-inset-top,0px));transition:background .3s,backdrop-filter .3s,border-color .3s;border-bottom:1px solid transparent}
+.nav.scrolled{background:rgba(8,8,8,.7);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{display:flex;flex-direction:column;line-height:1;font-weight:800}
+.logo b{font-size:24px;letter-spacing:-.04em}
+.logo b i{font-style:normal;color:var(--a1)}
+.logo small{font-family:var(--font-mono);font-size:9px;letter-spacing:.32em;color:var(--muted);margin-top:3px}
+.nav-links{display:flex;gap:28px;font-size:14px;font-weight:600;color:var(--muted)}
+.nav-links a:hover{color:var(--fg)}
+
+/* hero */
+.hero{padding-top:150px;padding-bottom:56px;overflow:hidden}
+.glow{position:absolute;border-radius:50%;filter:blur(110px);opacity:.5;pointer-events:none;animation:drift 18s ease-in-out infinite alternate}
+.glow.g1{width:520px;height:520px;background:#7c3aed;top:-120px;left:-140px;opacity:.38}
+.glow.g2{width:460px;height:460px;background:#2563eb;top:60px;right:-160px;opacity:.32;animation-delay:-6s}
+@keyframes drift{to{transform:translate3d(40px,30px,0)}}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;position:relative}
+.badge{display:inline-flex;gap:8px;align-items:center;padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.04);font-size:13px;font-weight:600;color:#d4d4d8;width:fit-content}
+.hero h1{font-size:clamp(40px,7vw,76px);font-weight:800;margin-top:22px}
+.hero h1 span{display:block}
+.hero .sub{color:var(--muted);font-size:18px;max-width:520px;margin-top:22px}
+.price-line{margin-top:22px;font-family:var(--font-mono);font-size:14px;color:#d4d4d8}
+.price-line b{color:var(--fg);font-size:18px}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.fade-up{animation:fadeUp .8s cubic-bezier(.2,.7,.2,1) both}
+.d1{animation-delay:.08s}.d2{animation-delay:.16s}.d3{animation-delay:.24s}.d4{animation-delay:.32s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+.browser{border:1px solid var(--line);border-radius:20px;background:var(--surface);overflow:hidden;box-shadow:0 40px 80px -30px rgba(124,58,237,.45);animation:float 7s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-14px) rotate(-.4deg)}}
+.bar{display:flex;align-items:center;gap:7px;padding:12px 16px;border-bottom:1px solid var(--line);font-family:var(--font-mono);font-size:11px;color:var(--muted)}
+.bar i{width:10px;height:10px;border-radius:50%;background:#3f3f46;display:block}
+.bar span{margin-left:auto}
+.bscreen{padding:44px 28px;min-height:280px;display:flex;flex-direction:column;justify-content:center;gap:18px;background:radial-gradient(120% 90% at 100% 0,rgba(124,58,237,.28),transparent 60%),radial-gradient(90% 80% at 0 100%,rgba(37,99,235,.22),transparent 60%)}
+.bscreen h3{font-size:clamp(22px,3vw,30px);font-weight:800;letter-spacing:-.02em;line-height:1.12;text-transform:uppercase}
+.bscreen .pill{width:fit-content;padding:9px 16px;border-radius:12px;background:var(--fg);color:#080808;font-weight:700;font-size:13px}
+
+/* marquee */
+.strip{padding-block:22px;border-block:1px solid var(--line);overflow:hidden;background:rgba(255,255,255,.015)}
+.track{display:flex;gap:44px;width:max-content;animation:marq 32s linear infinite}
+.track span{font-weight:600;color:#d4d4d8;font-size:15px;white-space:nowrap}
+.track span::before{content:"✓";color:var(--ok);margin-right:10px}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* cards */
+.grid{display:grid;gap:18px}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:12px;transition:transform .25s,border-color .25s,box-shadow .25s;min-width:0}
+.card:hover{transform:translateY(-5px);border-color:rgba(124,58,237,.6);box-shadow:0 0 0 1px rgba(124,58,237,.3),0 20px 50px -24px rgba(124,58,237,.55)}
+.card .ico{width:44px;height:44px;border-radius:12px;background:rgba(124,58,237,.14);border:1px solid rgba(124,58,237,.35);display:grid;place-items:center;font-size:21px}
+.card h3{font-size:20px;font-weight:700;letter-spacing:-.01em}
+.card .ico svg{width:22px;height:22px;stroke:#c4b5fd;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.card p{color:var(--muted);font-size:15px}
+.card .from{margin-top:auto;padding-top:10px;display:flex;justify-content:space-between;align-items:center;gap:10px;font-family:var(--font-mono);font-size:13px;color:#d4d4d8}
+.card .from a{font-family:var(--font-body);font-weight:700;color:#a78bfa}
+.card .from a:hover{color:#fff}
+
+/* demo concepts */
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:22px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:10px 18px;border-radius:12px;border:1px solid var(--line);background:transparent;font-weight:600;font-size:14px;color:var(--muted);white-space:nowrap;transition:all .2s}
+.tab:hover{color:#fff}
+.tab[aria-selected="true"]{background:var(--grad);border-color:transparent;color:#fff}
+.demo{display:grid;grid-template-columns:1.5fr .8fr;gap:22px;align-items:stretch}
+.demo-shot{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--surface);min-width:0}
+.mock{--m1:#c2410c;--m2:#fb923c;--mbg:#1a0f0a;padding:0;min-height:340px;background:var(--mbg);display:flex;flex-direction:column;transition:background .4s}
+.mock-nav{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;font-size:12px;color:rgba(255,255,255,.7);gap:12px}
+.mock-nav b{font-weight:800;color:#fff;letter-spacing:.04em}
+.mock-nav span{display:flex;gap:16px}
+.mock-top{display:grid;grid-template-columns:1.25fr .75fr;align-items:center;gap:8px;padding-right:28px}
+.mock-hero{padding:30px 0 22px 24px;display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.mock-art{aspect-ratio:1;width:100%;max-width:170px;justify-self:center;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--m2),var(--m1) 58%,transparent 74%);box-shadow:0 0 0 14px rgba(255,255,255,.04),0 0 0 30px rgba(255,255,255,.025);position:relative}
+.mock-art span{position:absolute;bottom:-4px;left:-14px;background:#fff;color:#111;font-weight:800;font-size:11px;padding:6px 10px;border-radius:999px;white-space:nowrap}
+.mock-hero h4{font-family:var(--font-display);font-size:clamp(24px,4vw,40px);font-weight:800;line-height:1.05;margin:0;max-width:440px;letter-spacing:-.02em}
+.mock-hero p{margin:0;font-size:13px;color:rgba(255,255,255,.65);max-width:380px}
+.mock-hero .mb{padding:9px 16px;border-radius:10px;background:var(--m2);color:#111;font-weight:800;font-size:12px}
+.mock-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:8px 24px 26px;margin-top:auto}
+.mock-cards div{border-radius:12px;padding:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);font-size:11px;color:rgba(255,255,255,.75);display:flex;flex-direction:column;gap:2px}
+.mock-cards div em{font-style:normal;margin-top:8px;font-weight:800;color:var(--m2);font-size:12px}
+.mock-cards div b{color:#fff;font-size:12px}
+.demo-side{display:flex;flex-direction:column;gap:16px;justify-content:center;padding:28px;border:1px solid var(--line);border-radius:20px;background:var(--surface)}
+.demo-side h3{font-size:24px;font-weight:800}
+.demo-side p{color:var(--muted);font-size:15px}
+.demo-side .note{font-family:var(--font-mono);font-size:11px;color:var(--muted);padding-top:6px;border-top:1px solid var(--line)}
+
+/* work */
+.work{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.proj{background:var(--surface);border:1px solid var(--line);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .25s,transform .25s;min-width:0}
+.proj:hover{border-color:rgba(124,58,237,.55);transform:translateY(-4px)}
+.shot{aspect-ratio:16/11;overflow:hidden;border-bottom:1px solid var(--line);background:#0c0c0e;container-type:inline-size}
+.shot .in{width:100%;height:100%;padding:4cqw;display:flex;flex-direction:column;gap:2.4cqw;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.s-top{display:flex;justify-content:space-between;align-items:center;font-size:3.6cqw}
+.s-top b{font-weight:700}
+.chip{font-size:2.8cqw;padding:.6cqw 2cqw;border:1px solid var(--line);border-radius:99px;color:var(--muted)}
+.s-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:2cqw}
+.s-stats div{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:2cqw;padding:2cqw 2.4cqw;display:flex;flex-direction:column;line-height:1.2}
+.s-stats small{font-size:2.5cqw;color:var(--muted)}
+.s-stats b{font-size:4.6cqw;font-weight:800}
+.s-stats em{font-style:normal;font-size:2.5cqw;color:var(--ok)}
+.s-chart{flex:1;min-height:0;border:1px solid var(--line);border-radius:2cqw;background:rgba(255,255,255,.03);padding:1cqw}
+.s-chart svg{width:100%;height:100%;display:block}
+.s-nav{display:flex;gap:3cqw;align-items:center;font-size:2.8cqw;color:var(--muted)}
+.s-nav b{margin-right:auto;color:#fff;font-size:3.4cqw}
+.s-hero{display:flex;gap:3.5cqw;align-items:center;flex:1}
+.av{width:15cqw;height:15cqw;border-radius:50%;background:var(--grad);display:grid;place-items:center;font-weight:800;font-size:5cqw;flex:none}
+.s-hero h5,.s-hero2 h5{margin:0;font-size:5.4cqw;font-weight:800;line-height:1.1;letter-spacing:-.01em}
+.s-hero p{margin:.6cqw 0 0;font-size:3cqw;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:1.4cqw;margin-top:2cqw}
+.chips i{font-style:normal;font-size:2.6cqw;padding:.7cqw 2cqw;border-radius:99px;background:rgba(124,58,237,.2);border:1px solid rgba(124,58,237,.4)}
+.s-proj,.s-list{display:grid;gap:2cqw}
+.s-proj{grid-template-columns:1fr 1fr}
+.s-list{grid-template-columns:repeat(3,1fr)}
+.s-proj div,.s-list div{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:2cqw;padding:2.2cqw;display:flex;flex-direction:column;font-size:3cqw;line-height:1.25}
+.s-proj small,.s-list small{font-size:2.5cqw;color:var(--muted)}
+.s-hero2{flex:1;display:flex;flex-direction:column;justify-content:center;gap:3cqw;background:linear-gradient(135deg,rgba(124,58,237,.35),rgba(37,99,235,.28));border-radius:2.5cqw;padding:4cqw}
+.s-hero2 h5{max-width:70%}
+.btnrow{display:flex;gap:2cqw}
+.btnrow i{font-style:normal;font-size:2.8cqw;font-weight:700;padding:1.6cqw 3cqw;border-radius:2cqw;background:#fff;color:#080808}
+.btnrow i.o{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4)}
+.proj:hover .shot .in{transform:scale(1.06)}
+.proj .body{padding:22px;display:flex;flex-direction:column;gap:10px;flex:1}
+.proj h3{font-size:20px;font-weight:700}
+.proj p{color:var(--muted);font-size:15px}
+.tags{font-family:var(--font-mono);font-size:12px;color:#a78bfa;margin-top:auto;padding-top:6px}
+.proj .lnk{font-weight:700;font-size:14px;color:#fff;width:fit-content}
+.proj .lnk:hover{color:#a78bfa}
+.d-top{display:flex;gap:6px}
+.d-top i{flex:1;height:34px;border-radius:8px;background:rgba(255,255,255,.06);border:1px solid var(--line)}
+.d-top i:first-child{background:linear-gradient(135deg,rgba(124,58,237,.5),rgba(37,99,235,.4))}
+.d-chart{flex:1;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.03);position:relative;overflow:hidden}
+.d-chart svg{position:absolute;inset:0;width:100%;height:100%}
+.d-bars{flex:1;display:flex;align-items:flex-end;gap:6px;padding:10px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
+.d-bars i{flex:1;border-radius:4px 4px 0 0;background:linear-gradient(#7c3aed,#2563eb)}
+.d-lines{display:flex;flex-direction:column;gap:7px;padding:6px 2px}
+.d-lines i{height:8px;border-radius:4px;background:rgba(255,255,255,.1);display:block}
+.d-blk{flex:1;border-radius:12px;background:linear-gradient(135deg,rgba(124,58,237,.55),rgba(37,99,235,.45));display:flex;align-items:flex-end;padding:12px;font-weight:800;font-size:15px;line-height:1.1}
+
+/* pricing */
+.price-grid{display:grid;grid-template-columns:1fr 1.08fr 1fr;gap:18px;align-items:center}
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:32px;display:flex;flex-direction:column;gap:18px;transition:transform .25s,box-shadow .25s;min-width:0}
+.plan:hover{transform:translateY(-6px);box-shadow:0 24px 60px -28px rgba(124,58,237,.5)}
+.plan.hot{background:linear-gradient(#111,#111) padding-box,var(--grad) border-box;border:1.5px solid transparent;padding-block:44px;position:relative}
+.plan .tag{font-family:var(--font-mono);font-size:12px;letter-spacing:.14em;color:var(--muted)}
+.plan.hot .tag{color:#c4b5fd}
+.plan .amt{font-size:46px;font-weight:800;letter-spacing:-.03em;line-height:1}
+.plan .for{color:var(--muted);font-size:15px;margin-top:-6px}
+.plan ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;font-size:15px;color:#e4e4e7}
+.plan li::before{content:"✓";color:var(--ok);margin-right:10px;font-weight:700}
+.plan .btn{margin-top:auto}
+.best{position:absolute;top:-13px;left:50%;transform:translateX(-50%);padding:5px 14px;border-radius:999px;background:var(--grad);font-size:12px;font-weight:700;white-space:nowrap}
+
+/* docs */
+.docs-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.docs-grid .sec-head{margin-bottom:24px}
+.docs-grid .box{padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+.docs-grid .box b{display:block;margin-bottom:4px}
+.docs-grid .box p{color:var(--muted);font-size:15px}
+.docs-grid .box p+p{margin-top:8px}
+.paper-wrap{display:grid;place-items:center;perspective:1200px}
+.paper{width:min(100%,340px);aspect-ratio:3/4;background:#f4f4f5;color:#111;border-radius:14px;padding:30px 28px;display:flex;flex-direction:column;gap:12px;box-shadow:0 40px 80px -30px rgba(124,58,237,.6);animation:flip 9s ease-in-out infinite;transform-style:preserve-3d}
+@keyframes flip{0%,100%{transform:rotateY(-14deg) rotateX(4deg)}50%{transform:rotateY(10deg) rotateX(-3deg) translateY(-8px)}}
+.paper .ph{font-weight:800;letter-spacing:.08em;font-size:13px;display:flex;justify-content:space-between;align-items:center}
+.paper .ph i{width:26px;height:4px;background:var(--grad);border-radius:2px;display:block}
+.paper h4{margin:10px 0 6px;font-family:var(--font-display);font-size:22px;font-weight:800;line-height:1.05;letter-spacing:-.02em}
+.paper ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px;font-size:13px;font-weight:600}
+.paper ol li{display:flex;gap:12px;border-bottom:1px dashed #d4d4d8;padding-bottom:8px}
+.paper ol li span{font-family:var(--font-mono);color:#7c3aed;font-weight:500}
+
+/* process */
+.steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;counter-reset:s}
+.step{padding:22px;border:1px solid var(--line);border-radius:18px;background:var(--surface);display:flex;flex-direction:column;gap:10px;min-width:0;position:relative}
+.step .n{font-family:var(--font-mono);font-size:13px;color:#a78bfa}
+.step h3{font-size:19px;font-weight:700}
+.step p{font-size:14px;color:var(--muted)}
+
+/* no idea */
+.noidea{border:1px solid var(--line);border-radius:28px;padding:56px 32px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:18px;background:radial-gradient(80% 120% at 50% 0,rgba(124,58,237,.18),transparent 70%),var(--surface)}
+.noidea h2{font-size:clamp(26px,4vw,40px);font-weight:800;max-width:620px}
+.noidea p{color:var(--muted);max-width:520px}
+
+/* future */
+.future{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.future span.c{padding:10px 16px;border:1px solid var(--line);border-radius:999px;font-size:14px;font-weight:600;color:#d4d4d8}
+.future span.c.now{background:var(--grad);border-color:transparent;color:#fff}
+.future span.ar{color:var(--muted)}
+
+/* final */
+.final{text-align:center;padding-block:120px;overflow:hidden}
+.final h2{font-size:clamp(40px,8vw,92px);font-weight:800;line-height:1}
+.final p{color:var(--muted);margin:22px auto 30px;max-width:420px;font-size:17px}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding-block:56px 120px}
+.foot{display:flex;flex-direction:column;align-items:center;gap:22px;text-align:center}
+.foot .tl{color:var(--muted);font-size:15px}
+.foot nav,.foot .soc{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 26px;font-size:14px;font-weight:600;color:#d4d4d8}
+.foot .soc{font-family:var(--font-mono);font-weight:400;font-size:13px;color:var(--muted)}
+.foot a:hover{color:#fff}
+.foot small{color:var(--muted);font-size:13px}
+
+/* whatsapp + sticky */
+.wa{position:fixed;right:20px;bottom:calc(24px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;align-items:center;gap:10px;flex-direction:row-reverse}
+.wa a.dot{width:56px;height:56px;border-radius:50%;background:#25d366;display:grid;place-items:center;font-size:26px;box-shadow:0 12px 30px -8px rgba(37,211,102,.6);transition:transform .2s}
+.wa a.dot:hover{transform:scale(1.08)}
+.wa .tip{padding:8px 14px;border-radius:12px;background:var(--surface-2);border:1px solid var(--line);font-size:13px;font-weight:600;opacity:0;transform:translateX(8px);transition:all .2s;pointer-events:none;white-space:nowrap}
+.wa:hover .tip{opacity:1;transform:none}
+.mbar{display:none}
+
+/* modal */
+.modal{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:grid;place-items:center;padding:16px;padding-top:calc(16px + env(safe-area-inset-top,0px));padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+.sheet{width:100%;max-width:620px;max-height:100%;overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:32px;position:relative;animation:fadeUp .35s both}
+.sheet h2{font-size:30px;font-weight:800;margin-bottom:6px}
+.sheet .lead{color:var(--muted);font-size:15px;margin-bottom:22px}
+.x{position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:12px;border:1px solid var(--line);background:transparent;font-size:18px}
+.x:hover{background:rgba(255,255,255,.06)}
+.f{display:flex;flex-direction:column;gap:7px;margin-bottom:18px;border:0;padding:0;min-width:0}
+.f label,.f legend{font-size:14px;font-weight:700;padding:0}
+.f input[type=text],.f input[type=email],.f input[type=tel],.f textarea{width:100%;padding:13px 14px;border-radius:12px;border:1px solid var(--line);background:#0b0b0c;color:var(--fg);font:inherit;font-size:15px}
+.f textarea{min-height:100px;resize:vertical}
+.f input:focus,.f textarea:focus{outline:2px solid #a78bfa;outline-offset:1px;border-color:transparent}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opts label{position:relative;font-weight:600;cursor:pointer}
+.opts input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.opts span{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid var(--line);font-size:14px;color:var(--muted);transition:all .15s}
+.opts input:checked+span{background:rgba(124,58,237,.2);border-color:#7c3aed;color:#fff}
+.opts input:focus-visible+span{outline:2px solid #a78bfa;outline-offset:2px}
+.err{color:#fca5a5;font-size:13px;min-height:1em}
+.done{display:flex;flex-direction:column;gap:14px}
+.done pre{margin:0;padding:16px;border-radius:14px;background:#0b0b0c;border:1px solid var(--line);font-family:var(--font-mono);font-size:12.5px;white-space:pre-wrap;word-break:break-word;color:#d4d4d8;max-height:220px;overflow:auto}
+.row{display:flex;flex-wrap:wrap;gap:10px}
+
+@media (max-width:960px){
+  .hero-grid,.demo,.docs-grid{grid-template-columns:1fr}
+  .g3,.work{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .price-grid{grid-template-columns:1fr}
+  .plan.hot{padding-block:32px}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .nav-links{display:none}
+}
+@media (max-width:640px){
+  section{padding-block:64px}
+  .hero{padding-top:118px}
+  .g3,.work,.steps{grid-template-columns:1fr}
+  .cta-row .btn{flex:1 1 100%}
+  .nav .btn-sm{padding:9px 14px}
+  .sheet{padding:26px 20px}
+  .noidea{padding:40px 20px}
+  .wa{display:none}
+  .mbar{display:grid;grid-template-columns:1fr 1fr;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:40;padding:12px 16px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));background:rgba(8,8,8,.85);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line)}
+  .mbar .btn{padding:13px 10px}
+  .mbar .wbtn{background:#25d366;color:#052e16;border-color:transparent}
+  .mock-cards{grid-template-columns:1fr 1fr}
+  .mock-cards div:nth-child(3){display:none}
+  .mock-top{grid-template-columns:1fr;padding-right:0}
+  .mock-art{display:none}
+  .mock-hero{padding-right:24px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="DP Studio home"><b>DP<i>.</i></b><small>STUDIO</small></a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#work">Work</a><a href="#services">Services</a><a href="#pricing">Pricing</a><a href="#why">About</a>
+    </nav>
+    <button class="btn btn-primary btn-sm" data-open>Let's Talk</button>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="glow g1"></div><div class="glow g2"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <div class="badge fade-up">✦ Independent Web Studio</div>
+      <h1><span class="fade-up d1">Your Idea.</span><span class="fade-up d2">Our Code.</span><span class="fade-up d3 grad-text">One Powerful Website.</span></h1>
+      <p class="sub fade-up d3">We design and build modern, responsive websites that help businesses, creators and professionals build a stronger online presence.</p>
+      <p class="price-line fade-up d4">Starting from <b>₹3,000+</b></p>
+      <div class="cta-row fade-up d4">
+        <button class="btn btn-primary" data-open>Start a Project →</button>
+        <a class="btn btn-ghost" href="#work">Explore Our Work</a>
+      </div>
+    </div>
+    <div class="browser fade-up d2" aria-hidden="true">
+      <div class="bar"><i></i><i></i><i></i><span>dpstudio</span></div>
+      <div class="bscreen">
+        <h3>Your business<br>deserves<br>a great website</h3>
+        <div class="pill">Explore →</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="strip" aria-label="What you get">
+  <div class="track" id="track"></div>
+</div>
+
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Services</div>
+      <h2>What can we build for you?</h2>
+      <p>From simple landing pages to complete business websites, we build according to your needs.</p>
+    </div>
+    <div class="grid g3">
+      <article class="card"><div class="ico">🌐</div><h3>Business Website</h3><p>Professional website for your business, service or company.</p><div class="from"><span>Starting ₹3,000+</span><a href="#" data-open data-need="Business Website">Explore →</a></div></article>
+      <article class="card"><div class="ico">🚀</div><h3>Landing Page</h3><p>High-converting landing pages for products, campaigns and startups.</p><div class="from"><span>Starting ₹3,000+</span><a href="#" data-open data-need="Landing Page">Explore →</a></div></article>
+      <article class="card"><div class="ico">👤</div><h3>Portfolio</h3><p>Personal portfolio websites for developers, students, creators and professionals.</p><div class="from"><span>Starting ₹3,000+</span><a href="#" data-open data-need="Portfolio">Explore →</a></div></article>
+      <article class="card"><div class="ico">🍽️</div><h3>Restaurant</h3><p>Menu, gallery, location, contact and online presence.</p><div class="from"><span>Starting ₹3,000+</span><a href="#" data-open data-need="Business Website">Explore →</a></div></article>
+      <article class="card"><div class="ico">🛒</div><h3>E-Commerce</h3><p>Product-focused websites for small businesses and online sellers.</p><div class="from"><span>Starting ₹7,000+</span><a href="#" data-open data-need="E-Commerce">Explore →</a></div></article>
+      <article class="card"><div class="ico">⚙️</div><h3>Custom</h3><p>Have a different idea? Let's discuss it.</p><div class="from"><span>Custom scope</span><a href="#" data-open data-need="Custom Website">Get a Quote →</a></div></article>
+    </div>
+  </div>
+</section>
+
+<section id="concepts" style="padding-top:24px">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Website concepts</div>
+      <h2>See what your website could look like.</h2>
+      <p>Explore some website concepts and imagine what we can build for your business.</p>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Website concepts" id="tabs"></div>
+    <div class="demo">
+      <div class="demo-shot">
+        <div class="bar"><i></i><i></i><i></i><span id="mockurl">restaurant-concept.site</span></div>
+        <div class="mock" id="mock" role="tabpanel"></div>
+      </div>
+      <div class="demo-side">
+        <h3 id="demoTitle">Restaurant</h3>
+        <p id="demoText"></p>
+        <div class="note">Concept design for illustration. Not a real client.</div>
+        <p style="color:#fff;font-weight:700;margin-top:6px">Want something similar?</p>
+        <button class="btn btn-primary" data-open id="demoCta">Start a Project →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work" style="padding-top:24px">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Selected work</div>
+      <h2>Our Work</h2>
+      <p>A few things we've built, designed and experimented with. Concept designs are shown for illustration, and client projects will be added as they launch.</p>
+    </div>
+    <div class="work">
+      <article class="proj">
+        <div class="shot"><div class="in">
+          <div class="s-top"><b>Analytics</b><span class="chip">Last 7 days</span></div>
+          <div class="s-stats"><div><small>Predictions</small><b>12.4k</b><em>+8.2%</em></div><div><small>Accuracy</small><b>94.2%</b><em>+1.4%</em></div><div><small>Latency</small><b>120ms</b><em>-12ms</em></div></div>
+          <div class="s-chart"><svg viewBox="0 0 300 92" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><defs><linearGradient id="ar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7c3aed" stop-opacity=".55"/><stop offset="1" stop-color="#2563eb" stop-opacity="0"/></linearGradient></defs><g stroke="rgba(255,255,255,.08)"><path d="M10 10H292M10 34H292M10 58H292"/></g><path d="M10 58 L56 46 L102 52 L148 30 L194 36 L240 18 L292 10 L292 74 L10 74Z" fill="url(#ar)"/><path d="M10 58 L56 46 L102 52 L148 30 L194 36 L240 18 L292 10" fill="none" stroke="#a78bfa" stroke-width="2"/><circle cx="292" cy="10" r="3" fill="#fff"/><g fill="#a1a1aa" font-size="8" font-family="sans-serif" text-anchor="middle"><text x="10" y="88" text-anchor="start">Mon</text><text x="102" y="88">Wed</text><text x="194" y="88">Fri</text><text x="292" y="88" text-anchor="end">Sun</text></g></svg></div>
+        </div></div>
+        <div class="body"><h3>AI Dashboard</h3><p>Interactive dashboard designed for data visualization and analysis.</p><div class="tags">AI • Dashboard • Responsive</div><a class="lnk" href="#" data-open>Build something similar →</a></div>
+      </article>
+      <article class="proj">
+        <div class="shot"><div class="in">
+          <div class="s-nav"><b>aarav.dev</b><span>Work</span><span>About</span><span>Contact</span></div>
+          <div class="s-hero"><div class="av">AM</div><div><h5>Aarav Mehta</h5><p>Frontend Developer</p><div class="chips"><i>HTML</i><i>CSS</i><i>JavaScript</i><i>React</i></div></div></div>
+          <div class="s-proj"><div><b>Weather App</b><small>React · Public API</small></div><div><b>Task Manager</b><small>JavaScript · LocalStorage</small></div></div>
+        </div></div>
+        <div class="body"><h3>Student Portfolio</h3><p>A clean personal site that puts projects, skills and contact details up front.</p><div class="tags">Portfolio • Landing • Responsive</div><a class="lnk" href="#" data-open>Build something similar →</a></div>
+      </article>
+      <article class="proj">
+        <div class="shot"><div class="in">
+          <div class="s-nav"><b>QuickFix Services</b><span>Services</span><span>Contact</span></div>
+          <div class="s-hero2"><h5>Home repairs, done the same day.</h5><div class="btnrow"><i>Book a visit</i><i class="o">Call now</i></div></div>
+          <div class="s-list"><div><b>Plumbing</b><small>From ₹299</small></div><div><b>Electrical</b><small>From ₹349</small></div><div><b>AC Service</b><small>From ₹599</small></div></div>
+        </div></div>
+        <div class="body"><h3>Business Website</h3><p>Services, enquiry form and WhatsApp contact for a small local business.</p><div class="tags">Business • Forms • WhatsApp</div><a class="lnk" href="#" data-open>Build something similar →</a></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Pricing</div>
+      <h2>Simple pricing. No confusion.</h2>
+      <p>Start small and upgrade as your needs grow.</p>
+    </div>
+    <div class="price-grid">
+      <article class="plan">
+        <div class="tag">STARTER</div><div class="amt">₹3,000+</div><div class="for">For simple websites</div>
+        <ul><li>Clean, Professional Layout</li><li>Responsive Design</li><li>Mobile Friendly</li><li>Modern UI</li><li>Contact Section</li><li>Basic Animations</li><li>Deployment Assistance</li><li>Documentation / Report</li></ul>
+        <button class="btn btn-ghost" data-open data-need="Not Sure" data-budget="₹3,000 – ₹5,000">Choose Starter →</button>
+      </article>
+      <article class="plan hot">
+        <div class="best">Recommended</div>
+        <div class="tag">BUSINESS</div><div class="amt">₹5,000+</div><div class="for">For professional businesses</div>
+        <ul><li>Complete Business Website</li><li>Custom UI</li><li>Responsive</li><li>Contact Form</li><li>WhatsApp Integration</li><li>Basic SEO</li><li>Deployment</li><li>Complete Documentation</li></ul>
+        <button class="btn btn-primary" data-open data-need="Business Website" data-budget="₹5,000 – ₹10,000">Choose Business →</button>
+      </article>
+      <article class="plan">
+        <div class="tag">CUSTOM</div><div class="amt">₹7,000+</div><div class="for">For custom requirements</div>
+        <ul><li>Custom Features</li><li>Database</li><li>Authentication</li><li>API Integration</li><li>Advanced UI</li><li>Deployment</li><li>Project Documentation</li></ul>
+        <button class="btn btn-ghost" data-open data-need="Custom Website" data-budget="₹10,000+">Discuss Project →</button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="docs">
+  <div class="wrap docs-grid">
+    <div>
+      <div class="sec-head">
+        <div class="eyebrow">Documentation</div>
+        <h2>More Than Just a Website.</h2>
+        <p>We can provide project documentation along with your website, so you understand what was built and how it works.</p>
+      </div>
+      <div class="box">
+        <b>Website + Documentation</b>
+        <p>A clean project report/documentation can be provided with your project.</p>
+        <p>Useful for student projects, startup projects and business owners.</p>
+      </div>
+    </div>
+    <div class="paper-wrap" aria-hidden="true">
+      <div class="paper">
+        <div class="ph"><span>DP STUDIO</span><i></i></div>
+        <h4>Project<br>Documentation</h4>
+        <ol>
+          <li><span>01</span>Project Overview</li><li><span>02</span>Features</li><li><span>03</span>Technologies</li><li><span>04</span>Structure</li><li><span>05</span>Setup</li><li><span>06</span>Screenshots</li><li><span>07</span>Future Improvements</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process" style="padding-top:24px">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Process</div>
+      <h2>From Idea to Online.</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="n">01</div><h3>Tell Us</h3><p>Tell us about your business and requirements.</p></div>
+      <div class="step"><div class="n">02</div><h3>Plan</h3><p>We discuss pages, features and design.</p></div>
+      <div class="step"><div class="n">03</div><h3>Build</h3><p>We design and develop your website.</p></div>
+      <div class="step"><div class="n">04</div><h3>Review</h3><p>You review the website and request changes.</p></div>
+      <div class="step"><div class="n">05</div><h3>Launch</h3><p>We deploy your website and provide the final project files/documentation.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="why" style="padding-top:24px">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">About</div>
+      <h2>Why DP Studio?</h2>
+    </div>
+    <div class="grid g3">
+      <article class="card"><div class="ico">💰</div><h3>Affordable</h3><p>Professional websites without agency-level pricing.</p></article>
+      <article class="card"><div class="ico">📱</div><h3>Responsive</h3><p>Designed to work smoothly across mobile, tablet and desktop.</p></article>
+      <article class="card"><div class="ico">🎨</div><h3>Custom Design</h3><p>We don't just copy-paste templates.</p></article>
+      <article class="card"><div class="ico">📄</div><h3>Documentation</h3><p>Project documentation/report can be provided with the website.</p></article>
+      <article class="card"><div class="ico">⚡</div><h3>Direct Communication</h3><p>Talk directly with the people building your website.</p></article>
+      <article class="card"><div class="ico">🚀</div><h3>Launch Support</h3><p>Help with deployment and getting your website online.</p></article>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:24px">
+  <div class="wrap">
+    <div class="noidea">
+      <h2>Don't know what website you need?</h2>
+      <p>That's okay. Tell us about your business and we'll help you figure out what kind of website makes sense.</p>
+      <button class="btn btn-primary" data-open data-need="Not Sure">Help Me Choose →</button>
+    </div>
+  </div>
+</section>
+
+<section style="padding-block:40px 0">
+  <div class="wrap">
+    <div class="eyebrow" style="margin-bottom:16px">Where we're heading</div>
+    <div class="future">
+      <span class="c now">Web Development</span><span class="ar">→</span><span class="c">UI/UX Design</span><span class="ar">→</span><span class="c">AI Integration</span><span class="ar">→</span><span class="c">Automation</span><span class="ar">→</span><span class="c">SEO</span><span class="ar">→</span><span class="c">Website Maintenance</span>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="glow g1" style="top:auto;bottom:-260px;left:20%;opacity:.3"></div>
+  <div class="wrap" style="position:relative">
+    <h2>Have an idea?<br><span class="grad-text">Let's turn it into a website.</span></h2>
+    <p>Your next website could start with one simple message.</p>
+    <button class="btn btn-primary" data-open>Start a Project →</button>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a class="logo" href="#top" style="align-items:center"><b>DP<i>.</i></b><small>STUDIO</small></a>
+    <p class="tl">Your Idea. Our Code. One Powerful Website.</p>
+    <nav aria-label="Footer"><a href="#services">Services</a><a href="#work">Work</a><a href="#pricing">Pricing</a><a href="#process">Process</a><a href="#" data-open>Contact</a></nav>
+    <div class="soc"><a id="waFoot" href="#" target="_blank" rel="noopener">Chat on WhatsApp →</a></div>
+    <small>© 2026 DP Studio · Built by Dev &amp; Preet.</small>
+  </div>
+</footer>
+
+<div class="wa"><a class="dot" id="waDot" href="#" target="_blank" rel="noopener" aria-label="Chat with DP Studio on WhatsApp">💬</a><span class="tip">Chat with DP Studio</span></div>
+<div class="mbar"><a class="btn wbtn" id="waBar" href="#" target="_blank" rel="noopener">WhatsApp</a><button class="btn btn-primary" data-open>Start Project</button></div>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="sheet">
+    <button class="x" id="mClose" aria-label="Close">✕</button>
+    <div id="formView">
+      <h2 id="mTitle">Let's build something.</h2>
+      <p class="lead">Tell us about your project. We'll get back to you with the next steps.</p>
+      <form id="form" novalidate>
+        <div class="f"><label for="fName">Name *</label><input id="fName" type="text" autocomplete="name"><div class="err" id="eName"></div></div>
+        <div class="f"><label for="fEmail">Email *</label><input id="fEmail" type="email" autocomplete="email"><div class="err" id="eEmail"></div></div>
+        <div class="f"><label for="fWa">WhatsApp Number</label><input id="fWa" type="tel" autocomplete="tel"></div>
+        <fieldset class="f"><legend>What do you need?</legend><div class="opts" id="needOpts"></div></fieldset>
+        <fieldset class="f"><legend>Estimated Budget</legend><div class="opts" id="budOpts"></div></fieldset>
+        <div class="f"><label for="fMsg">Tell us about your project</label><textarea id="fMsg"></textarea></div>
+        <button class="btn btn-primary" type="submit" style="width:100%">Send Inquiry →</button>
+      </form>
+    </div>
+    <div class="done" id="doneView" hidden>
+      <h2>Almost there.</h2>
+      <p class="lead" style="margin:0">Your inquiry is ready. Send it to DP Studio on WhatsApp to start the conversation.</p>
+      <pre id="summary"></pre>
+      <div class="row">
+        <a class="btn btn-primary" id="waSend" href="#" target="_blank" rel="noopener">Send on WhatsApp →</a>
+        <button class="btn btn-ghost" id="copyBtn" type="button">Copy inquiry</button>
+        <button class="btn btn-ghost" id="backBtn" type="button">Edit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  // Set the studio WhatsApp number in international format without "+", e.g. "919876543210".
+  var WA_NUMBER = "";
+  var WA_BASE = "https://wa.me/" + WA_NUMBER;
+  var HELLO = "Hi DP Studio, I found your website and I'd like to discuss a website project.";
+  function waUrl(t){ return WA_BASE + "?text=" + encodeURIComponent(t); }
+  ["waDot","waBar","waFoot"].forEach(function(id){ document.getElementById(id).href = waUrl(HELLO); });
+
+  // nav blur on scroll
+  var nav = document.getElementById("nav");
+  function onScroll(){ nav.classList.toggle("scrolled", window.scrollY > 24); }
+  window.addEventListener("scroll", onScroll, {passive:true}); onScroll();
+
+  // line icons replace emoji, keyed by card title
+  var IC = {
+    "Business Website":'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
+    "Landing Page":'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 20V9"/>',
+    "Portfolio":'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+    "Restaurant":'<path d="M7 3v8M4 3v5a3 3 0 0 0 6 0V3M7 11v10M17 21V3c-2 1-4 4-4 8h4"/>',
+    "E-Commerce":'<circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l3 12h11l2-8H6"/>',
+    "Custom":'<path d="M4 6h8M18 6h2M4 12h2M12 12h8M4 18h10M20 18h0"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/>',
+    "Affordable":'<path d="M3 12V3h9l9 9-9 9z"/><circle cx="7.5" cy="7.5" r="1"/>',
+    "Responsive":'<rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/>',
+    "Custom Design":'<path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',
+    "Documentation":'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/>',
+    "Direct Communication":'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
+    "Launch Support":'<circle cx="12" cy="12" r="9"/><path d="M8 16L16 8M9 8h7v7"/>'
+  };
+  Array.prototype.forEach.call(document.querySelectorAll(".card .ico"), function(el){
+    var h = el.parentNode.querySelector("h3");
+    var p = h && IC[h.textContent.trim()];
+    if(p) el.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true">'+p+'</svg>';
+  });
+
+  // trust strip
+  var items = ["Responsive","Mobile Friendly","Modern UI","Fast","Documentation Included","Direct Support"];
+  var tr = document.getElementById("track");
+  tr.innerHTML = items.concat(items, items, items).map(function(t){ return "<span>"+t+"</span>"; }).join("");
+
+  // concepts
+  var concepts = [
+    {k:"Restaurant", url:"restaurant-concept.site", m1:"#c2410c", m2:"#fb923c", bg:"#1a0f0a", nav:["Menu","Gallery","Reserve"], brand:"EMBER &amp; OAK", h:"Wood-fired food, made slowly.", p:"Menu, opening hours and a one-tap table booking.", cta:"Reserve a table", cards:[["Chef's menu","From ₹349"],["Gallery","24 photos"],["Find us","Open till 11"]], text:"Menu, gallery, location, hours and a reservation button. Built so a hungry visitor finds what they need in seconds."},
+    {k:"Gym", url:"gym-concept.site", m1:"#16a34a", m2:"#4ade80", bg:"#06120a", nav:["Plans","Trainers","Timings"], brand:"IRONWORKS", h:"Train hard. Start today.", p:"Membership plans, trainer profiles and batch timings.", cta:"Join now", cards:[["Monthly","₹999"],["Quarterly","₹2,499"],["Trainers","6 coaches"]], text:"Membership plans, trainer profiles, batch timings and a quick join form for local gyms and fitness studios."},
+    {k:"Salon", url:"salon-concept.site", m1:"#be185d", m2:"#f472b6", bg:"#180a12", nav:["Services","Offers","Book"], brand:"VELVET", h:"Look good. Feel better.", p:"Service list with prices and easy appointment booking.", cta:"Book a slot", cards:[["Haircut","₹299"],["Facial","₹799"],["Bridal","On request"]], text:"A service and price list, before-and-after gallery and appointment booking by WhatsApp."},
+    {k:"Business", url:"business-concept.site", m1:"#2563eb", m2:"#60a5fa", bg:"#070d1a", nav:["About","Services","Contact"], brand:"NORTHBRIDGE", h:"Reliable service for growing firms.", p:"Clear services, team details and a contact form.", cta:"Get a quote", cards:[["Consulting","Learn more"],["Support","24/7"],["Contact","Write to us"]], text:"A professional company site with services, about, team and a contact form that sends enquiries your way."},
+    {k:"Portfolio", url:"portfolio-concept.site", m1:"#7c3aed", m2:"#c4b5fd", bg:"#0d0818", nav:["Projects","Skills","Resume"], brand:"A. SHARMA", h:"Developer who ships clean UI.", p:"Selected projects, skills and a downloadable resume.", cta:"See projects", cards:[["Project 1","React"],["Project 2","Node"],["Resume","PDF"]], text:"Projects, skills, resume and contact for developers, students and creators who want to be found."},
+    {k:"Real Estate", url:"realestate-concept.site", m1:"#0d9488", m2:"#5eead4", bg:"#061413", nav:["Listings","Areas","Enquire"], brand:"HOMESTEAD", h:"Find the right place to call home.", p:"Property listings with photos, pricing and enquiry buttons.", cta:"View listings", cards:[["2 BHK","₹45 L"],["3 BHK","₹78 L"],["Plots","₹18 L"]], text:"Property listings with photos, price, area details and an enquiry button on every listing."}
+  ];
+  var EXTRA = [
+    {chip:"Open now · till 11 PM", cards:[["Wood-fired Margherita","Tomato, basil, mozzarella","₹349"],["Smoked Paneer Tikka","Charred, with mint chutney","₹299"],["Tiramisu","Coffee-soaked, made daily","₹189"]]},
+    {chip:"Batches 6 AM – 10 PM", cards:[["Monthly","Gym floor and cardio","₹999"],["Quarterly","Includes 2 trainer sessions","₹2,499"],["Personal Training","One-on-one coaching","₹4,999"]]},
+    {chip:"Book today", cards:[["Haircut &amp; Styling","Wash, cut and finish","₹299"],["Hydra Facial","Deep cleanse and glow","₹799"],["Bridal Package","Trial plus full day","On request"]]},
+    {chip:"Free consultation", cards:[["Consulting","Strategy for growing firms","Learn more"],["Support","Dedicated account manager","24/7"],["Contact","Reply within one day","Write to us"]]},
+    {chip:"Open to work", cards:[["Weather App","React · Public API","Live demo"],["Task Manager","JavaScript · LocalStorage","Source"],["Shop UI","HTML · CSS · JS","Case study"]]},
+    {chip:"New listings", cards:[["2 BHK Apartment","Prime locality, 1,050 sq ft","₹45 L"],["3 BHK Villa","Gated society, 2,100 sq ft","₹78 L"],["Residential Plot","1,800 sq ft, clear title","₹18 L"]]}
+  ];
+  concepts.forEach(function(c,i){ c.cards = EXTRA[i].cards; c.chip = EXTRA[i].chip; });
+  var tabsEl = document.getElementById("tabs"), mock = document.getElementById("mock");
+  concepts.forEach(function(c,i){
+    var b = document.createElement("button");
+    b.className = "tab"; b.type = "button"; b.id = "tab"+i; b.setAttribute("role","tab");
+    b.setAttribute("aria-selected", i===0 ? "true":"false"); b.textContent = c.k;
+    b.addEventListener("click", function(){ show(i); });
+    tabsEl.appendChild(b);
+  });
+  function show(i){
+    var c = concepts[i];
+    Array.prototype.forEach.call(tabsEl.children, function(t,j){ t.setAttribute("aria-selected", j===i ? "true":"false"); });
+    mock.style.setProperty("--m1", c.m1); mock.style.setProperty("--m2", c.m2); mock.style.setProperty("--mbg", c.bg);
+    mock.setAttribute("aria-labelledby","tab"+i);
+    mock.innerHTML =
+      '<div class="mock-nav"><b>'+c.brand+'</b><span>'+c.nav.map(function(n){return "<em style='font-style:normal'>"+n+"</em>";}).join("")+'</span></div>'+
+      '<div class="mock-top"><div class="mock-hero"><h4>'+c.h+'</h4><p>'+c.p+'</p><div class="mb">'+c.cta+'</div></div><div class="mock-art"><span>'+c.chip+'</span></div></div>'+
+      '<div class="mock-cards">'+c.cards.map(function(x){return "<div><b>"+x[0]+"</b>"+x[1]+"<em>"+x[2]+"</em></div>";}).join("")+'</div>';
+    document.getElementById("mockurl").textContent = c.url;
+    document.getElementById("demoTitle").textContent = c.k;
+    document.getElementById("demoText").textContent = c.text;
+    var cta = document.getElementById("demoCta");
+    cta.setAttribute("data-need", c.k==="Portfolio" ? "Portfolio" : "Business Website");
+  }
+  show(0);
+
+  // modal + form
+  var needs = ["Business Website","Portfolio","Landing Page","E-Commerce","Custom Website","Not Sure"];
+  var buds = ["₹3,000 – ₹5,000","₹5,000 – ₹10,000","₹10,000+"];
+  function radios(host, name, list){
+    document.getElementById(host).innerHTML = list.map(function(v,i){
+      return '<label><input type="radio" name="'+name+'" value="'+v+'"><span>'+v+'</span></label>';
+    }).join("");
+  }
+  radios("needOpts","need",needs); radios("budOpts","budget",buds);
+
+  var modal = document.getElementById("modal"), form = document.getElementById("form");
+  var formView = document.getElementById("formView"), doneView = document.getElementById("doneView");
+  var lastFocus = null;
+  function setRadio(name, val){
+    if(!val) return;
+    Array.prototype.forEach.call(form.elements[name], function(r){ r.checked = (r.value === val); });
+  }
+  function openModal(need, budget){
+    lastFocus = document.activeElement;
+    formView.hidden = false; doneView.hidden = true;
+    if(need) setRadio("need", need);
+    if(budget) setRadio("budget", budget);
+    modal.hidden = false; document.body.style.overflow = "hidden";
+    setTimeout(function(){ document.getElementById("fName").focus(); }, 30);
+  }
+  function closeModal(){
+    modal.hidden = true; document.body.style.overflow = "";
+    if(lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  document.addEventListener("click", function(e){
+    var t = e.target.closest("[data-open]");
+    if(t){ e.preventDefault(); openModal(t.getAttribute("data-need"), t.getAttribute("data-budget")); }
+  });
+  document.getElementById("mClose").addEventListener("click", closeModal);
+  modal.addEventListener("click", function(e){ if(e.target === modal) closeModal(); });
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape" && !modal.hidden) closeModal();
+    if(e.key === "Tab" && !modal.hidden){
+      var f = modal.querySelectorAll("button:not([hidden]),input,textarea,a[href]");
+      f = Array.prototype.filter.call(f, function(x){ return x.offsetParent !== null; });
+      if(!f.length) return;
+      var first = f[0], last = f[f.length-1];
+      if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    }
+  });
+
+  var summaryText = "";
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var name = document.getElementById("fName").value.trim();
+    var email = document.getElementById("fEmail").value.trim();
+    var ok = true;
+    document.getElementById("eName").textContent = name ? "" : "Please enter your name.";
+    if(!name) ok = false;
+    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    document.getElementById("eEmail").textContent = emailOk ? "" : "Enter a valid email, like name@example.com.";
+    if(!emailOk) ok = false;
+    if(!ok) return;
+    var need = (form.querySelector("input[name=need]:checked")||{}).value || "-";
+    var bud = (form.querySelector("input[name=budget]:checked")||{}).value || "-";
+    summaryText =
+      "New Project Inquiry — DP Studio\n\n"+
+      "Name: "+name+"\nEmail: "+email+"\nWhatsApp: "+(document.getElementById("fWa").value.trim()||"-")+"\n\n"+
+      "Service: "+need+"\nBudget: "+bud+"\n\n"+
+      "Project Details:\n"+(document.getElementById("fMsg").value.trim()||"-");
+    document.getElementById("summary").textContent = summaryText;
+    document.getElementById("waSend").href = waUrl(summaryText);
+    formView.hidden = true; doneView.hidden = false;
+  });
+  document.getElementById("backBtn").addEventListener("click", function(){ doneView.hidden = true; formView.hidden = false; });
+  document.getElementById("copyBtn").addEventListener("click", function(){
+    var btn = this;
+    function fallback(){
+      var r = document.createRange(); r.selectNodeContents(document.getElementById("summary"));
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      btn.textContent = "Selected. Press copy";
+    }
+    try{
+      navigator.clipboard.writeText(summaryText).then(function(){ btn.textContent = "Copied"; }, fallback);
+    }catch(err){ fallback(); }
+  });
+})();
+</script>
+
+</body></html>
