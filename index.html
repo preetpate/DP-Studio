@@ -1,4 +1,9 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="DP Studio builds modern, responsive websites for businesses, creators and professionals. Websites starting from ₹3,000+.">
 <title>DP Studio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,6 +27,7 @@
   color-scheme:dark;
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:16px;line-height:1.6;margin:0;padding-inline:0;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
@@ -81,7 +87,8 @@ section{padding-block:88px;position:relative}
 .bar span{margin-left:auto}
 .bscreen{padding:44px 28px;min-height:280px;display:flex;flex-direction:column;justify-content:center;gap:18px;background:radial-gradient(120% 90% at 100% 0,rgba(124,58,237,.28),transparent 60%),radial-gradient(90% 80% at 0 100%,rgba(37,99,235,.22),transparent 60%)}
 .bscreen h3{font-size:clamp(22px,3vw,30px);font-weight:800;letter-spacing:-.02em;line-height:1.12;text-transform:uppercase}
-.bscreen .pill{width:fit-content;padding:9px 16px;border-radius:12px;background:var(--fg);color:#080808;font-weight:700;font-size:13px}
+.bscreen .pill{width:fit-content;padding:9px 16px;border-radius:12px;background:var(--fg);color:#080808;font-weight:700;font-size:13px;transition:transform .2s,box-shadow .2s;cursor:pointer}
+.bscreen .pill:hover{transform:translateY(-2px);box-shadow:0 8px 24px -8px rgba(255,255,255,.5)}
 
 /* marquee */
 .strip{padding-block:22px;border-block:1px solid var(--line);overflow:hidden;background:rgba(255,255,255,.015)}
@@ -121,7 +128,8 @@ section{padding-block:88px;position:relative}
 .mock-art span{position:absolute;bottom:-4px;left:-14px;background:#fff;color:#111;font-weight:800;font-size:11px;padding:6px 10px;border-radius:999px;white-space:nowrap}
 .mock-hero h4{font-family:var(--font-display);font-size:clamp(24px,4vw,40px);font-weight:800;line-height:1.05;margin:0;max-width:440px;letter-spacing:-.02em}
 .mock-hero p{margin:0;font-size:13px;color:rgba(255,255,255,.65);max-width:380px}
-.mock-hero .mb{padding:9px 16px;border-radius:10px;background:var(--m2);color:#111;font-weight:800;font-size:12px}
+.mock-hero .mb{padding:9px 16px;border-radius:10px;background:var(--m2);color:#111;font-weight:800;font-size:12px;cursor:pointer;transition:transform .2s}
+.mock-hero .mb:hover{transform:translateY(-2px)}
 .mock-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:8px 24px 26px;margin-top:auto}
 .mock-cards div{border-radius:12px;padding:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);font-size:11px;color:rgba(255,255,255,.75);display:flex;flex-direction:column;gap:2px}
 .mock-cards div em{font-style:normal;margin-top:8px;font-weight:800;color:var(--m2);font-size:12px}
@@ -183,6 +191,30 @@ section{padding-block:88px;position:relative}
 .d-lines i{height:8px;border-radius:4px;background:rgba(255,255,255,.1);display:block}
 .d-blk{flex:1;border-radius:12px;background:linear-gradient(135deg,rgba(124,58,237,.55),rgba(37,99,235,.45));display:flex;align-items:flex-end;padding:12px;font-weight:800;font-size:15px;line-height:1.1}
 
+/* work thumbs */
+.wt{aspect-ratio:16/10;background:linear-gradient(135deg,var(--w1),var(--w2));display:flex;flex-direction:column;justify-content:flex-end;gap:6px;padding:22px;border-bottom:1px solid var(--line);transition:transform .5s;overflow:hidden}
+.wt span{font-weight:800;font-size:clamp(24px,3vw,32px);line-height:1.05;letter-spacing:-.02em}
+.wt small{font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,.75)}
+.proj .wt{transform-origin:center}
+.smp{font-style:normal;font-family:var(--font-mono);font-size:11px;font-weight:500;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:2px 8px;margin-left:6px;vertical-align:middle}
+.final-note{display:none}
+/* product */
+.prod{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;border:1px solid var(--line);border-radius:28px;padding:44px;background:radial-gradient(90% 120% at 100% 0,rgba(37,99,235,.16),transparent 60%),radial-gradient(70% 100% at 0 100%,rgba(124,58,237,.14),transparent 60%),var(--surface);min-width:0}
+.prod h2{font-size:clamp(30px,4.5vw,46px);font-weight:800;margin-top:14px}
+.prod p{color:var(--muted);font-size:17px;margin-top:14px;max-width:500px}
+.status{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12px;color:#d4d4d8;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.04)}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px rgba(52,211,153,.18)}
+.prod ul{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:10px;font-size:15px;color:#e4e4e7}
+.prod li::before{content:"✓";color:var(--ok);margin-right:10px;font-weight:700}
+.signin{background:#0d0d0f;border:1px solid var(--line);border-radius:22px;padding:28px;display:grid;gap:14px;box-shadow:0 30px 70px -34px rgba(37,99,235,.55);min-width:0}
+.pa{display:flex;align-items:center;gap:12px}
+.pa b{width:44px;height:44px;border-radius:13px;background:var(--grad);display:grid;place-items:center;font-weight:800;letter-spacing:-.02em}
+.pa span{font-weight:800;font-size:19px}.pa small{display:block;font-weight:500;font-size:12px;color:var(--muted)}
+.signin h3{font-size:22px;font-weight:800;margin-top:6px}.signin .s2{color:var(--muted);font-size:14px;margin-top:-8px}
+.fld{height:42px;border:1px solid var(--line);border-radius:11px;background:#141416;display:flex;align-items:center;padding-inline:14px;color:#71717a;font-size:14px}
+.sbtn{height:42px;border-radius:11px;background:var(--grad);display:grid;place-items:center;font-weight:700;font-size:14px}
+.gbtn{height:42px;border-radius:11px;border:1px solid var(--line);display:grid;place-items:center;font-weight:600;font-size:14px;color:#d4d4d8}
+@media(max-width:900px){.prod{grid-template-columns:1fr;padding:28px}}
 /* pricing */
 .price-grid{display:grid;grid-template-columns:1fr 1.08fr 1fr;gap:18px;align-items:center}
 .plan{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:32px;display:flex;flex-direction:column;gap:18px;transition:transform .25s,box-shadow .25s;min-width:0}
@@ -296,6 +328,7 @@ footer{border-top:1px solid var(--line);padding-block:56px 120px}
   .wa{display:none}
   .mbar{display:grid;grid-template-columns:1fr 1fr;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:40;padding:12px 16px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));background:rgba(8,8,8,.85);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line)}
   .mbar .btn{padding:13px 10px}
+  .mbar.solo{grid-template-columns:1fr}
   .mbar .wbtn{background:#25d366;color:#052e16;border-color:transparent}
   .mock-cards{grid-template-columns:1fr 1fr}
   .mock-cards div:nth-child(3){display:none}
@@ -308,11 +341,13 @@ footer{border-top:1px solid var(--line);padding-block:56px 120px}
 }
 </style>
 
+</head>
+<body>
 <header class="nav" id="nav">
   <div class="wrap">
     <a class="logo" href="#top" aria-label="DP Studio home"><b>DP<i>.</i></b><small>STUDIO</small></a>
     <nav class="nav-links" aria-label="Main">
-      <a href="#work">Work</a><a href="#services">Services</a><a href="#pricing">Pricing</a><a href="#why">About</a>
+      <a href="#work">Work</a><a href="#services">Services</a><a href="#product">Pre-Agent</a><a href="#pricing">Pricing</a><a href="#why">About</a>
     </nav>
     <button class="btn btn-primary btn-sm" data-open>Let's Talk</button>
   </div>
@@ -332,11 +367,11 @@ footer{border-top:1px solid var(--line);padding-block:56px 120px}
         <a class="btn btn-ghost" href="#work">Explore Our Work</a>
       </div>
     </div>
-    <div class="browser fade-up d2" aria-hidden="true">
-      <div class="bar"><i></i><i></i><i></i><span>dpstudio</span></div>
+    <div class="browser fade-up d2">
+      <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>dpstudio</span></div>
       <div class="bscreen">
         <h3>Your business<br>deserves<br>a great website</h3>
-        <div class="pill">Explore →</div>
+        <a class="pill" href="#services">Explore →</a>
       </div>
     </div>
   </div>
@@ -354,36 +389,12 @@ footer{border-top:1px solid var(--line);padding-block:56px 120px}
       <p>From simple landing pages to complete business websites, we build according to your needs.</p>
     </div>
     <div class="grid g3">
-      <article class="card"><div class="ico">🌐</div><h3>Business Website</h3><p>Professional website for your business, service or company.</p><div class="from"><span>Starting ₹3,000+</span><a href="#" data-open data-need="Business Website">Explore →</a></div></article>
-      <article class="card"><div class="ico">🚀</div><h3>Landing Page</h3><p>High-converting landing pages for products, campaigns and startups.</p><div class="from"><span>Starting ₹3,000+</span><a href="#" data-open data-need="Landing Page">Explore →</a></div></article>
-      <article class="card"><div class="ico">👤</div><h3>Portfolio</h3><p>Personal portfolio websites for developers, students, creators and professionals.</p><div class="from"><span>Starting ₹3,000+</span><a href="#" data-open data-need="Portfolio">Explore →</a></div></article>
-      <article class="card"><div class="ico">🍽️</div><h3>Restaurant</h3><p>Menu, gallery, location, contact and online presence.</p><div class="from"><span>Starting ₹3,000+</span><a href="#" data-open data-need="Business Website">Explore →</a></div></article>
-      <article class="card"><div class="ico">🛒</div><h3>E-Commerce</h3><p>Product-focused websites for small businesses and online sellers.</p><div class="from"><span>Starting ₹7,000+</span><a href="#" data-open data-need="E-Commerce">Explore →</a></div></article>
-      <article class="card"><div class="ico">⚙️</div><h3>Custom</h3><p>Have a different idea? Let's discuss it.</p><div class="from"><span>Custom scope</span><a href="#" data-open data-need="Custom Website">Get a Quote →</a></div></article>
-    </div>
-  </div>
-</section>
-
-<section id="concepts" style="padding-top:24px">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="eyebrow">Website concepts</div>
-      <h2>See what your website could look like.</h2>
-      <p>Explore some website concepts and imagine what we can build for your business.</p>
-    </div>
-    <div class="tabs" role="tablist" aria-label="Website concepts" id="tabs"></div>
-    <div class="demo">
-      <div class="demo-shot">
-        <div class="bar"><i></i><i></i><i></i><span id="mockurl">restaurant-concept.site</span></div>
-        <div class="mock" id="mock" role="tabpanel"></div>
-      </div>
-      <div class="demo-side">
-        <h3 id="demoTitle">Restaurant</h3>
-        <p id="demoText"></p>
-        <div class="note">Concept design for illustration. Not a real client.</div>
-        <p style="color:#fff;font-weight:700;margin-top:6px">Want something similar?</p>
-        <button class="btn btn-primary" data-open id="demoCta">Start a Project →</button>
-      </div>
+      <article class="card"><div class="ico">🌐</div><h3>Business Website</h3><p>Professional website for your business, service or company.</p><div class="from"><span>Starting ₹3,000+</span><a href="https://preetpate.github.io/Business/" target="_blank" rel="noopener">View live demo →</a></div></article>
+      <article class="card"><div class="ico">🚀</div><h3>Landing Page</h3><p>High-converting landing pages for products, campaigns and startups.</p><div class="from"><span>Starting ₹3,000+</span><a href="https://preetpate.github.io/Landing-Page/" target="_blank" rel="noopener">View live demo →</a></div></article>
+      <article class="card"><div class="ico">👤</div><h3>Portfolio</h3><p>Personal portfolio websites for developers, students, creators and professionals.</p><div class="from"><span>Starting ₹3,000+</span><a href="https://preetpate.github.io/Prit-Portfolio/" target="_blank" rel="noopener">View live demo →</a></div></article>
+      <article class="card"><div class="ico">🍽️</div><h3>Restaurant</h3><p>Menu, gallery, location, contact and online presence.</p><div class="from"><span>Starting ₹3,000+</span><a href="https://rastaurant-rfty.onrender.com/" target="_blank" rel="noopener">View live demo →</a></div></article>
+      <article class="card"><div class="ico">🛒</div><h3>E-Commerce</h3><p>Product-focused websites for small businesses and online sellers.</p><div class="from"><span>Starting ₹7,000+</span><a href="https://preetpate.github.io/Shop/" target="_blank" rel="noopener">View live demo →</a></div></article>
+      <article class="card"><div class="ico">⚙️</div><h3>Custom</h3><p>Have a different idea? Let's discuss it.</p><div class="from"><span>Starting ₹7,000+</span><a href="https://preetpate.github.io/Custom/" target="_blank" rel="noopener">View live demo →</a></div></article>
     </div>
   </div>
 </section>
@@ -393,33 +404,68 @@ footer{border-top:1px solid var(--line);padding-block:56px 120px}
     <div class="sec-head">
       <div class="eyebrow">Selected work</div>
       <h2>Our Work</h2>
-      <p>A few things we've built, designed and experimented with. Concept designs are shown for illustration, and client projects will be added as they launch.</p>
+      <p>Live websites and apps you can open and try. Sample projects are marked.</p>
     </div>
     <div class="work">
       <article class="proj">
-        <div class="shot"><div class="in">
-          <div class="s-top"><b>Analytics</b><span class="chip">Last 7 days</span></div>
-          <div class="s-stats"><div><small>Predictions</small><b>12.4k</b><em>+8.2%</em></div><div><small>Accuracy</small><b>94.2%</b><em>+1.4%</em></div><div><small>Latency</small><b>120ms</b><em>-12ms</em></div></div>
-          <div class="s-chart"><svg viewBox="0 0 300 92" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><defs><linearGradient id="ar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7c3aed" stop-opacity=".55"/><stop offset="1" stop-color="#2563eb" stop-opacity="0"/></linearGradient></defs><g stroke="rgba(255,255,255,.08)"><path d="M10 10H292M10 34H292M10 58H292"/></g><path d="M10 58 L56 46 L102 52 L148 30 L194 36 L240 18 L292 10 L292 74 L10 74Z" fill="url(#ar)"/><path d="M10 58 L56 46 L102 52 L148 30 L194 36 L240 18 L292 10" fill="none" stroke="#a78bfa" stroke-width="2"/><circle cx="292" cy="10" r="3" fill="#fff"/><g fill="#a1a1aa" font-size="8" font-family="sans-serif" text-anchor="middle"><text x="10" y="88" text-anchor="start">Mon</text><text x="102" y="88">Wed</text><text x="194" y="88">Fri</text><text x="292" y="88" text-anchor="end">Sun</text></g></svg></div>
-        </div></div>
-        <div class="body"><h3>AI Dashboard</h3><p>Interactive dashboard designed for data visualization and analysis.</p><div class="tags">AI • Dashboard • Responsive</div><a class="lnk" href="#" data-open>Build something similar →</a></div>
+        <div class="wt" style="--w1:#b45309;--w2:#7c2d12"><span>Prime<br>Restaurant</span><small>Italian · Punjabi · Gujarati · Mexican</small></div>
+        <div class="body"><h3>Prime Restaurant</h3><p>A restaurant website with a multi-cuisine menu and a clear online presence.</p><div class="tags">Restaurant • Menu • Responsive</div><a class="lnk" href="https://rastaurant-rfty.onrender.com/" target="_blank" rel="noopener">Open website →</a></div>
       </article>
       <article class="proj">
-        <div class="shot"><div class="in">
-          <div class="s-nav"><b>aarav.dev</b><span>Work</span><span>About</span><span>Contact</span></div>
-          <div class="s-hero"><div class="av">AM</div><div><h5>Aarav Mehta</h5><p>Frontend Developer</p><div class="chips"><i>HTML</i><i>CSS</i><i>JavaScript</i><i>React</i></div></div></div>
-          <div class="s-proj"><div><b>Weather App</b><small>React · Public API</small></div><div><b>Task Manager</b><small>JavaScript · LocalStorage</small></div></div>
-        </div></div>
-        <div class="body"><h3>Student Portfolio</h3><p>A clean personal site that puts projects, skills and contact details up front.</p><div class="tags">Portfolio • Landing • Responsive</div><a class="lnk" href="#" data-open>Build something similar →</a></div>
+        <div class="wt" style="--w1:#7c3aed;--w2:#2563eb"><span>Prit<br>Portfolio</span><small>Personal portfolio</small></div>
+        <div class="body"><h3>Prit Portfolio</h3><p>A personal portfolio website that presents projects, skills and contact details.</p><div class="tags">Portfolio • Responsive</div><a class="lnk" href="https://preetpate.github.io/Prit-Portfolio/" target="_blank" rel="noopener">Open website →</a></div>
       </article>
       <article class="proj">
-        <div class="shot"><div class="in">
-          <div class="s-nav"><b>QuickFix Services</b><span>Services</span><span>Contact</span></div>
-          <div class="s-hero2"><h5>Home repairs, done the same day.</h5><div class="btnrow"><i>Book a visit</i><i class="o">Call now</i></div></div>
-          <div class="s-list"><div><b>Plumbing</b><small>From ₹299</small></div><div><b>Electrical</b><small>From ₹349</small></div><div><b>AC Service</b><small>From ₹599</small></div></div>
-        </div></div>
-        <div class="body"><h3>Business Website</h3><p>Services, enquiry form and WhatsApp contact for a small local business.</p><div class="tags">Business • Forms • WhatsApp</div><a class="lnk" href="#" data-open>Build something similar →</a></div>
+        <div class="wt" style="--w1:#0b3d2e;--w2:#14594a"><span>Chai &amp; Co</span><small>Sample online store</small></div>
+        <div class="body"><h3>Chai &amp; Co <em class="smp">Sample</em></h3><p>An online store with category filters, a working cart and an order form.</p><div class="tags">E-Commerce • Cart • Checkout</div><a class="lnk" href="https://preetpate.github.io/Shop/" target="_blank" rel="noopener">Open website →</a></div>
       </article>
+      <article class="proj">
+        <div class="wt" style="--w1:#0f2742;--w2:#173a63"><span>Sharma &amp;<br>Rao</span><small>Sample business website</small></div>
+        <div class="body"><h3>Sharma &amp; Rao <em class="smp">Sample</em></h3><p>A business website with services, process and a consultation request form.</p><div class="tags">Business • Forms • Responsive</div><a class="lnk" href="https://preetpate.github.io/Business/" target="_blank" rel="noopener">Open website →</a></div>
+      </article>
+      <article class="proj">
+        <div class="wt" style="--w1:#1f7a5a;--w2:#0f5a41"><span>Focusly</span><small>Sample landing page</small></div>
+        <div class="body"><h3>Focusly <em class="smp">Sample</em></h3><p>A product landing page with features, pricing, FAQ and a waitlist form.</p><div class="tags">Landing • Pricing • Waitlist</div><a class="lnk" href="https://preetpate.github.io/Landing-Page/" target="_blank" rel="noopener">Open website →</a></div>
+      </article>
+      <article class="proj">
+        <div class="wt" style="--w1:#0e1116;--w2:#1c3b32"><span>Stockroom</span><small>Sample custom web app</small></div>
+        <div class="body"><h3>Stockroom <em class="smp">Sample</em></h3><p>An inventory app with login, product management and low-stock alerts.</p><div class="tags">Web App • Login • Dashboard</div><a class="lnk" href="https://preetpate.github.io/Custom/" target="_blank" rel="noopener">Open app →</a></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="product" style="padding-top:24px">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Our own product</div>
+      <h2>We build our own products too.</h2>
+      <p>Pre-Agent is a product built in-house at DP Studio, and it is live today.</p>
+    </div>
+    <div class="prod">
+      <div>
+        <span class="status"><i></i>Live · v1.0</span>
+        <h2>Pre-Agent</h2>
+        <p>An AI-powered assistant you can use right now. Create an account and start using it from any browser.</p>
+        <ul>
+          <li>AI-powered assistant</li>
+          <li>Sign in with email or Google</li>
+          <li>Works in the browser, no install</li>
+        </ul>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://pre-agent.onrender.com/" target="_blank" rel="noopener">Open Pre-Agent →</a>
+          <button class="btn btn-ghost" data-open data-need="Custom Website">Want one like this?</button>
+        </div>
+      </div>
+      <div class="signin" aria-hidden="true">
+        <div class="pa"><b>PA</b><span>Pre-Agent<small>AI-powered assistant</small></span></div>
+        <h3>Welcome back</h3>
+        <div class="s2">Sign in to continue to Pre-Agent.</div>
+        <div class="fld">Email address</div>
+        <div class="fld">Password</div>
+        <div class="sbtn">Sign in</div>
+        <div class="gbtn">Continue with Google</div>
+      </div>
     </div>
   </div>
 </section>
@@ -521,15 +567,6 @@ footer{border-top:1px solid var(--line);padding-block:56px 120px}
   </div>
 </section>
 
-<section style="padding-block:40px 0">
-  <div class="wrap">
-    <div class="eyebrow" style="margin-bottom:16px">Where we're heading</div>
-    <div class="future">
-      <span class="c now">Web Development</span><span class="ar">→</span><span class="c">UI/UX Design</span><span class="ar">→</span><span class="c">AI Integration</span><span class="ar">→</span><span class="c">Automation</span><span class="ar">→</span><span class="c">SEO</span><span class="ar">→</span><span class="c">Website Maintenance</span>
-    </div>
-  </div>
-</section>
-
 <section class="final">
   <div class="glow g1" style="top:auto;bottom:-260px;left:20%;opacity:.3"></div>
   <div class="wrap" style="position:relative">
@@ -544,7 +581,7 @@ footer{border-top:1px solid var(--line);padding-block:56px 120px}
   <div class="wrap foot">
     <a class="logo" href="#top" style="align-items:center"><b>DP<i>.</i></b><small>STUDIO</small></a>
     <p class="tl">Your Idea. Our Code. One Powerful Website.</p>
-    <nav aria-label="Footer"><a href="#services">Services</a><a href="#work">Work</a><a href="#pricing">Pricing</a><a href="#process">Process</a><a href="#" data-open>Contact</a></nav>
+    <nav aria-label="Footer"><a href="#services">Services</a><a href="#work">Work</a><a href="#product">Pre-Agent</a><a href="#pricing">Pricing</a><a href="#process">Process</a><a href="#" data-open>Contact</a></nav>
     <div class="soc"><a id="waFoot" href="#" target="_blank" rel="noopener">Chat on WhatsApp →</a></div>
     <small>© 2026 DP Studio · Built by Dev &amp; Preet.</small>
   </div>
@@ -570,13 +607,14 @@ footer{border-top:1px solid var(--line);padding-block:56px 120px}
       </form>
     </div>
     <div class="done" id="doneView" hidden>
-      <h2>Almost there.</h2>
-      <p class="lead" style="margin:0">Your inquiry is ready. Send it to DP Studio on WhatsApp to start the conversation.</p>
+      <h2 id="doneTitle">One last step.</h2>
+      <p class="lead" style="margin:0" id="doneText"></p>
       <pre id="summary"></pre>
       <div class="row">
         <a class="btn btn-primary" id="waSend" href="#" target="_blank" rel="noopener">Send on WhatsApp →</a>
         <button class="btn btn-ghost" id="copyBtn" type="button">Copy inquiry</button>
         <button class="btn btn-ghost" id="backBtn" type="button">Edit</button>
+        <button class="btn btn-primary" id="closeDone" type="button" hidden>Close</button>
       </div>
     </div>
   </div>
@@ -584,12 +622,25 @@ footer{border-top:1px solid var(--line);padding-block:56px 120px}
 
 <script>
 (function(){
-  // Set the studio WhatsApp number in international format without "+", e.g. "919876543210".
+  // ---- Settings -------------------------------------------------------
+  // WhatsApp number in international format without "+", e.g. "919876543210".
+  // Leave empty to hide every WhatsApp button.
   var WA_NUMBER = "";
-  var WA_BASE = "https://wa.me/" + WA_NUMBER;
+  // Free key from web3forms.com. Inquiries are emailed to the address you register there.
+  // Leave as is to show a copy-and-send summary instead.
+  var ACCESS_KEY = "PASTE_YOUR_WEB3FORMS_KEY";
+  // ---------------------------------------------------------------------
+  var HAS_WA = /^\d{8,15}$/.test(WA_NUMBER);
+  var HAS_MAIL = ACCESS_KEY.indexOf("PASTE") !== 0;
   var HELLO = "Hi DP Studio, I found your website and I'd like to discuss a website project.";
-  function waUrl(t){ return WA_BASE + "?text=" + encodeURIComponent(t); }
-  ["waDot","waBar","waFoot"].forEach(function(id){ document.getElementById(id).href = waUrl(HELLO); });
+  function waUrl(t){ return "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(t); }
+  ["waDot","waBar","waFoot"].forEach(function(id){
+    var el = document.getElementById(id);
+    if(HAS_WA){ el.href = waUrl(HELLO); }
+    else if(id === "waDot"){ el.parentNode.hidden = true; }
+    else if(id === "waFoot"){ el.parentNode.hidden = true; }
+    else { el.hidden = true; document.querySelector(".mbar").classList.add("solo"); }
+  });
 
   // nav blur on scroll
   var nav = document.getElementById("nav");
@@ -622,49 +673,6 @@ footer{border-top:1px solid var(--line);padding-block:56px 120px}
   var tr = document.getElementById("track");
   tr.innerHTML = items.concat(items, items, items).map(function(t){ return "<span>"+t+"</span>"; }).join("");
 
-  // concepts
-  var concepts = [
-    {k:"Restaurant", url:"restaurant-concept.site", m1:"#c2410c", m2:"#fb923c", bg:"#1a0f0a", nav:["Menu","Gallery","Reserve"], brand:"EMBER &amp; OAK", h:"Wood-fired food, made slowly.", p:"Menu, opening hours and a one-tap table booking.", cta:"Reserve a table", cards:[["Chef's menu","From ₹349"],["Gallery","24 photos"],["Find us","Open till 11"]], text:"Menu, gallery, location, hours and a reservation button. Built so a hungry visitor finds what they need in seconds."},
-    {k:"Gym", url:"gym-concept.site", m1:"#16a34a", m2:"#4ade80", bg:"#06120a", nav:["Plans","Trainers","Timings"], brand:"IRONWORKS", h:"Train hard. Start today.", p:"Membership plans, trainer profiles and batch timings.", cta:"Join now", cards:[["Monthly","₹999"],["Quarterly","₹2,499"],["Trainers","6 coaches"]], text:"Membership plans, trainer profiles, batch timings and a quick join form for local gyms and fitness studios."},
-    {k:"Salon", url:"salon-concept.site", m1:"#be185d", m2:"#f472b6", bg:"#180a12", nav:["Services","Offers","Book"], brand:"VELVET", h:"Look good. Feel better.", p:"Service list with prices and easy appointment booking.", cta:"Book a slot", cards:[["Haircut","₹299"],["Facial","₹799"],["Bridal","On request"]], text:"A service and price list, before-and-after gallery and appointment booking by WhatsApp."},
-    {k:"Business", url:"business-concept.site", m1:"#2563eb", m2:"#60a5fa", bg:"#070d1a", nav:["About","Services","Contact"], brand:"NORTHBRIDGE", h:"Reliable service for growing firms.", p:"Clear services, team details and a contact form.", cta:"Get a quote", cards:[["Consulting","Learn more"],["Support","24/7"],["Contact","Write to us"]], text:"A professional company site with services, about, team and a contact form that sends enquiries your way."},
-    {k:"Portfolio", url:"portfolio-concept.site", m1:"#7c3aed", m2:"#c4b5fd", bg:"#0d0818", nav:["Projects","Skills","Resume"], brand:"A. SHARMA", h:"Developer who ships clean UI.", p:"Selected projects, skills and a downloadable resume.", cta:"See projects", cards:[["Project 1","React"],["Project 2","Node"],["Resume","PDF"]], text:"Projects, skills, resume and contact for developers, students and creators who want to be found."},
-    {k:"Real Estate", url:"realestate-concept.site", m1:"#0d9488", m2:"#5eead4", bg:"#061413", nav:["Listings","Areas","Enquire"], brand:"HOMESTEAD", h:"Find the right place to call home.", p:"Property listings with photos, pricing and enquiry buttons.", cta:"View listings", cards:[["2 BHK","₹45 L"],["3 BHK","₹78 L"],["Plots","₹18 L"]], text:"Property listings with photos, price, area details and an enquiry button on every listing."}
-  ];
-  var EXTRA = [
-    {chip:"Open now · till 11 PM", cards:[["Wood-fired Margherita","Tomato, basil, mozzarella","₹349"],["Smoked Paneer Tikka","Charred, with mint chutney","₹299"],["Tiramisu","Coffee-soaked, made daily","₹189"]]},
-    {chip:"Batches 6 AM – 10 PM", cards:[["Monthly","Gym floor and cardio","₹999"],["Quarterly","Includes 2 trainer sessions","₹2,499"],["Personal Training","One-on-one coaching","₹4,999"]]},
-    {chip:"Book today", cards:[["Haircut &amp; Styling","Wash, cut and finish","₹299"],["Hydra Facial","Deep cleanse and glow","₹799"],["Bridal Package","Trial plus full day","On request"]]},
-    {chip:"Free consultation", cards:[["Consulting","Strategy for growing firms","Learn more"],["Support","Dedicated account manager","24/7"],["Contact","Reply within one day","Write to us"]]},
-    {chip:"Open to work", cards:[["Weather App","React · Public API","Live demo"],["Task Manager","JavaScript · LocalStorage","Source"],["Shop UI","HTML · CSS · JS","Case study"]]},
-    {chip:"New listings", cards:[["2 BHK Apartment","Prime locality, 1,050 sq ft","₹45 L"],["3 BHK Villa","Gated society, 2,100 sq ft","₹78 L"],["Residential Plot","1,800 sq ft, clear title","₹18 L"]]}
-  ];
-  concepts.forEach(function(c,i){ c.cards = EXTRA[i].cards; c.chip = EXTRA[i].chip; });
-  var tabsEl = document.getElementById("tabs"), mock = document.getElementById("mock");
-  concepts.forEach(function(c,i){
-    var b = document.createElement("button");
-    b.className = "tab"; b.type = "button"; b.id = "tab"+i; b.setAttribute("role","tab");
-    b.setAttribute("aria-selected", i===0 ? "true":"false"); b.textContent = c.k;
-    b.addEventListener("click", function(){ show(i); });
-    tabsEl.appendChild(b);
-  });
-  function show(i){
-    var c = concepts[i];
-    Array.prototype.forEach.call(tabsEl.children, function(t,j){ t.setAttribute("aria-selected", j===i ? "true":"false"); });
-    mock.style.setProperty("--m1", c.m1); mock.style.setProperty("--m2", c.m2); mock.style.setProperty("--mbg", c.bg);
-    mock.setAttribute("aria-labelledby","tab"+i);
-    mock.innerHTML =
-      '<div class="mock-nav"><b>'+c.brand+'</b><span>'+c.nav.map(function(n){return "<em style='font-style:normal'>"+n+"</em>";}).join("")+'</span></div>'+
-      '<div class="mock-top"><div class="mock-hero"><h4>'+c.h+'</h4><p>'+c.p+'</p><div class="mb">'+c.cta+'</div></div><div class="mock-art"><span>'+c.chip+'</span></div></div>'+
-      '<div class="mock-cards">'+c.cards.map(function(x){return "<div><b>"+x[0]+"</b>"+x[1]+"<em>"+x[2]+"</em></div>";}).join("")+'</div>';
-    document.getElementById("mockurl").textContent = c.url;
-    document.getElementById("demoTitle").textContent = c.k;
-    document.getElementById("demoText").textContent = c.text;
-    var cta = document.getElementById("demoCta");
-    cta.setAttribute("data-need", c.k==="Portfolio" ? "Portfolio" : "Business Website");
-  }
-  show(0);
-
   // modal + form
   var needs = ["Business Website","Portfolio","Landing Page","E-Commerce","Custom Website","Not Sure"];
   var buds = ["₹3,000 – ₹5,000","₹5,000 – ₹10,000","₹10,000+"];
@@ -685,6 +693,7 @@ footer{border-top:1px solid var(--line);padding-block:56px 120px}
   function openModal(need, budget){
     lastFocus = document.activeElement;
     formView.hidden = false; doneView.hidden = true;
+    Array.prototype.forEach.call(form.querySelectorAll("input[type=radio]"), function(r){ r.checked = false; });
     if(need) setRadio("need", need);
     if(budget) setRadio("budget", budget);
     modal.hidden = false; document.body.style.overflow = "hidden";
@@ -699,6 +708,7 @@ footer{border-top:1px solid var(--line);padding-block:56px 120px}
     if(t){ e.preventDefault(); openModal(t.getAttribute("data-need"), t.getAttribute("data-budget")); }
   });
   document.getElementById("mClose").addEventListener("click", closeModal);
+  document.getElementById("closeDone").addEventListener("click", closeModal);
   modal.addEventListener("click", function(e){ if(e.target === modal) closeModal(); });
   document.addEventListener("keydown", function(e){
     if(e.key === "Escape" && !modal.hidden) closeModal();
@@ -732,8 +742,30 @@ footer{border-top:1px solid var(--line);padding-block:56px 120px}
       "Service: "+need+"\nBudget: "+bud+"\n\n"+
       "Project Details:\n"+(document.getElementById("fMsg").value.trim()||"-");
     document.getElementById("summary").textContent = summaryText;
-    document.getElementById("waSend").href = waUrl(summaryText);
-    formView.hidden = true; doneView.hidden = false;
+    var sb = form.querySelector("button[type=submit]");
+    function showDone(sent, errMsg){
+      document.getElementById("doneTitle").textContent = sent ? "Inquiry sent." : "One last step.";
+      document.getElementById("doneText").textContent = sent
+        ? "Thank you. We will get back to you with the next steps."
+        : (errMsg ? errMsg + " Copy your inquiry below and send it to us instead." : "Copy your inquiry below and send it to us.");
+      document.getElementById("summary").hidden = sent;
+      document.getElementById("copyBtn").hidden = sent;
+      document.getElementById("backBtn").hidden = sent;
+      var wa = document.getElementById("waSend");
+      wa.hidden = sent || !HAS_WA; if(HAS_WA) wa.href = waUrl(summaryText);
+      document.getElementById("closeDone").hidden = !sent;
+      formView.hidden = true; doneView.hidden = false;
+      if(sent) form.reset();
+    }
+    if(!HAS_MAIL){ showDone(false, ""); return; }
+    sb.disabled = true; sb.textContent = "Sending...";
+    fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},
+      body:JSON.stringify({access_key:ACCESS_KEY,subject:"New Project Inquiry — DP Studio",from_name:"DP Studio website",name:name,email:email,
+        whatsapp:document.getElementById("fWa").value.trim()||"-",service:need,budget:bud,message:document.getElementById("fMsg").value.trim()||"-"})})
+    .then(function(r){return r.json()})
+    .then(function(j){ if(!j.success) throw new Error(j.message||"Could not send."); showDone(true); })
+    .catch(function(err){ showDone(false, "We could not send it automatically."); })
+    .then(function(){ sb.disabled = false; sb.textContent = "Send Inquiry →"; });
   });
   document.getElementById("backBtn").addEventListener("click", function(){ doneView.hidden = true; formView.hidden = false; });
   document.getElementById("copyBtn").addEventListener("click", function(){
@@ -750,4 +782,5 @@ footer{border-top:1px solid var(--line);padding-block:56px 120px}
 })();
 </script>
 
-</body></html>
+</body>
+</html>
