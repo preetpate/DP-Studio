@@ -30,7 +30,7 @@ Chai & Co, Sharma & Rao, Focusly and Stockroom are sample projects with fictiona
 - **Pre-Agent:** a section for DP Studio's own AI assistant product.
 - **Pricing:** Starter ₹3,000+, Business ₹5,000+, Custom ₹7,000+. Each button opens the inquiry form with the plan selected.
 - **Documentation:** the project report that comes with every website.
-- **Process:** five steps from idea to launch.
+- **Process:** five steps from idea to delivery.
 - **Why DP Studio:** six reasons to choose the studio.
 - **Help Me Choose:** opens the inquiry form for visitors who are not sure what they need.
 - **Final call to action** and **footer**.
@@ -40,9 +40,17 @@ Chai & Co, Sharma & Rao, Focusly and Stockroom are sample projects with fictiona
 ## Files
 
 ```
-index.html   the whole website (HTML, CSS and JavaScript)
-README.md    this file
+index.html             the whole website (HTML, CSS and JavaScript)
+README.md              this file
+favicon.svg            browser tab icon (sharp at any size)
+favicon-32.png         browser tab icon fallback
+apple-touch-icon.png   icon used when the site is saved to a phone home screen
+icon-512.png           large icon for social profiles and app listings
+logo-mark.svg          the DP logo mark on its own
+logo-wordmark.svg      logo mark with the "DP. STUDIO" wordmark
 ```
+
+Upload every file in this folder to the repository root so the favicon and icons load.
 
 ## Settings you must change
 
@@ -77,7 +85,7 @@ If the key is not set, or sending fails, the form shows a ready summary with a *
 ## Put it online with GitHub Pages
 
 1. Create a new repository on GitHub, for example `DP-Studio`.
-2. Upload `index.html` and `README.md` to the repository root.
+2. Upload all the files from this folder to the repository root.
 3. Open **Settings → Pages**.
 4. Under **Build and deployment**, choose **Deploy from a branch**, select the `main` branch and the `/ (root)` folder, then click **Save**.
 5. After a minute your site is live at `https://YOUR-USERNAME.github.io/DP-Studio/`.
@@ -95,6 +103,10 @@ To use your own domain, add it under **Settings → Pages → Custom domain**.
 | Footer text | `Built by Dev & Preet` |
 
 The colors are CSS variables: `--bg` (background), `--surface` (cards), `--a1` and `--a2` (the purple to blue accent), and `--muted` (secondary text).
+
+## Logo
+
+The mark is a **D** with a **P** cut into it, set on a purple-to-blue tile. It stays readable down to 16 pixels, so the same shape is used for the favicon. The wordmark is a heavy "DP." with "STUDIO" in small spaced capitals underneath.
 
 ## Design
 
