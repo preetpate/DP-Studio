@@ -1,9 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="DP Studio builds modern, responsive websites for businesses, creators and professionals. Websites starting from ₹3,000+.">
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>DP Studio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,11 +50,14 @@ section{padding-block:88px;position:relative}
 .nav{position:fixed;inset:0 0 auto 0;z-index:50;padding:14px 0;padding-top:calc(14px + env(safe-area-inset-top,0px));transition:background .3s,backdrop-filter .3s,border-color .3s;border-bottom:1px solid transparent}
 .nav.scrolled{background:rgba(8,8,8,.7);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-color:var(--line)}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
-.logo{display:flex;flex-direction:column;line-height:1;font-weight:800}
-.logo b{font-size:24px;letter-spacing:-.04em}
+.logo{display:flex;align-items:center;gap:11px;line-height:1}
+.logo .mk{width:42px;height:42px;flex:none;filter:drop-shadow(0 4px 14px rgba(124,58,237,.55))}
+.logo .lt{display:flex;flex-direction:column;gap:4px}
+.logo b{font-size:32px;font-weight:800;letter-spacing:-.05em;line-height:.9}
 .logo b i{font-style:normal;color:var(--a1)}
-.logo small{font-family:var(--font-mono);font-size:9px;letter-spacing:.32em;color:var(--muted);margin-top:3px}
-.nav-links{display:flex;gap:28px;font-size:14px;font-weight:600;color:var(--muted)}
+.logo small{font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:.42em;color:var(--muted);padding-left:2px}
+@media(max-width:640px){.logo .mk{width:36px;height:36px}.logo b{font-size:27px}.logo small{font-size:9.5px}}
+.nav-links{display:flex;gap:28px;font-size:15.5px;font-weight:600;color:var(--muted)}
 .nav-links a:hover{color:var(--fg)}
 
 /* hero */
@@ -341,11 +339,9 @@ footer{border-top:1px solid var(--line);padding-block:56px 120px}
 }
 </style>
 
-</head>
-<body>
 <header class="nav" id="nav">
   <div class="wrap">
-    <a class="logo" href="#top" aria-label="DP Studio home"><b>DP<i>.</i></b><small>STUDIO</small></a>
+    <a class="logo" href="#top" aria-label="DP Studio home"><svg class="mk" viewBox="6 6 28 28" aria-hidden="true"><defs><linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8b5cf6"/><stop offset="1" stop-color="#2563eb"/></linearGradient></defs><path fill="url(#lg1)" fill-rule="evenodd" d="M8 8H20A12 12 0 0 1 20 32H8Z M14 13H20A4 4 0 0 1 20 21H17.5V28H14Z"/></svg><span class="lt"><b>DP<i>.</i></b><small>STUDIO</small></span></a>
     <nav class="nav-links" aria-label="Main">
       <a href="#work">Work</a><a href="#services">Services</a><a href="#product">Pre-Agent</a><a href="#pricing">Pricing</a><a href="#why">About</a>
     </nav>
@@ -579,7 +575,7 @@ footer{border-top:1px solid var(--line);padding-block:56px 120px}
 
 <footer>
   <div class="wrap foot">
-    <a class="logo" href="#top" style="align-items:center"><b>DP<i>.</i></b><small>STUDIO</small></a>
+    <a class="logo" href="#top" aria-label="DP Studio home"><svg class="mk" viewBox="6 6 28 28" aria-hidden="true"><defs><linearGradient id="lg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8b5cf6"/><stop offset="1" stop-color="#2563eb"/></linearGradient></defs><path fill="url(#lg2)" fill-rule="evenodd" d="M8 8H20A12 12 0 0 1 20 32H8Z M14 13H20A4 4 0 0 1 20 21H17.5V28H14Z"/></svg><span class="lt"><b>DP<i>.</i></b><small>STUDIO</small></span></a>
     <p class="tl">Your Idea. Our Code. One Powerful Website.</p>
     <nav aria-label="Footer"><a href="#services">Services</a><a href="#work">Work</a><a href="#product">Pre-Agent</a><a href="#pricing">Pricing</a><a href="#process">Process</a><a href="#" data-open>Contact</a></nav>
     <div class="soc"><a id="waFoot" href="#" target="_blank" rel="noopener">Chat on WhatsApp →</a></div>
@@ -782,5 +778,4 @@ footer{border-top:1px solid var(--line);padding-block:56px 120px}
 })();
 </script>
 
-</body>
-</html>
+</body></html>
