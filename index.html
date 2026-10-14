@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="DP Studio builds modern, responsive websites for businesses, creators and professionals. Websites starting from ₹3,000+.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2040%2040%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22gf%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238b5cf6%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%232563eb%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width%3D%2240%22%20height%3D%2240%22%20rx%3D%2210%22%20fill%3D%22url%28%23gf%29%22/%3E%3Cpath%20fill%3D%22%23fff%22%20fill-rule%3D%22evenodd%22%20d%3D%22M8%207H20A13%2013%200%200%201%2020%2033H8Z%20M14%2012H21A5.5%205.5%200%200%201%2021%2023H18.5V29H14Z%20M18.5%2015.5H21A2.5%202.5%200%200%201%2021%2020.5H18.5Z%22/%3E%3C/svg%3E">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -222,6 +223,14 @@ section{padding-block:88px;position:relative}
 .sbtn{height:42px;border-radius:11px;background:var(--grad);display:grid;place-items:center;font-weight:700;font-size:14px}
 .gbtn{height:42px;border-radius:11px;border:1px solid var(--line);display:grid;place-items:center;font-weight:600;font-size:14px;color:#d4d4d8}
 @media(max-width:900px){.prod{grid-template-columns:1fr;padding:28px}}
+/* offer */
+.offer{margin-top:28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:22px 26px;border-radius:20px;border:1px solid rgba(124,58,237,.45);background:linear-gradient(135deg,rgba(124,58,237,.16),rgba(37,99,235,.12))}
+.offer .ot{display:flex;align-items:center;gap:16px;min-width:0}
+.offer .ob{width:46px;height:46px;border-radius:13px;background:var(--grad);display:grid;place-items:center;flex:none}
+.offer .ob svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.offer b{display:block;font-size:18px;font-weight:800;letter-spacing:-.01em}
+.offer span.d{color:var(--muted);font-size:15px}
+@media(max-width:640px){.offer{padding:20px}.offer .btn{width:100%}}
 /* pricing */
 .price-grid{display:grid;grid-template-columns:1fr 1.08fr 1fr;gap:18px;align-items:center}
 .plan{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:32px;display:flex;flex-direction:column;gap:18px;transition:transform .25s,box-shadow .25s;min-width:0}
@@ -354,7 +363,7 @@ footer{border-top:1px solid var(--line);padding-block:56px 120px}
   <div class="wrap">
     <a class="logo" href="#top" aria-label="DP Studio home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" class="mk" aria-hidden="true"><defs><linearGradient id="gn1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8b5cf6"/><stop offset="1" stop-color="#2563eb"/></linearGradient></defs><rect width="40" height="40" rx="10" fill="url(#gn1)"/><path fill="#fff" fill-rule="evenodd" d="M8 7H20A13 13 0 0 1 20 33H8Z M14 12H21A5.5 5.5 0 0 1 21 23H18.5V29H14Z M18.5 15.5H21A2.5 2.5 0 0 1 21 20.5H18.5Z"/></svg><span class="lt"><b>DP<i>.</i></b><small>STUDIO</small></span></a>
     <nav class="nav-links" aria-label="Main">
-      <a href="#work">Work</a><a href="#services">Services</a><a href="#product">Pre-Agent</a><a href="#pricing">Pricing</a><a href="#why">About</a>
+      <a href="#services">Services</a><a href="#product">Pre-Agent</a><a href="#pricing">Pricing</a><a href="#why">About</a>
     </nav>
     <button class="btn btn-primary btn-sm" data-open>Let's Talk</button>
   </div>
@@ -371,7 +380,7 @@ footer{border-top:1px solid var(--line);padding-block:56px 120px}
       <p class="price-line fade-up d4">Starting from <b>₹3,000+</b></p>
       <div class="cta-row fade-up d4">
         <button class="btn btn-primary" data-open>Start a Project →</button>
-        <a class="btn btn-ghost" href="#work">Explore Our Work</a>
+        <a class="btn btn-ghost" href="#services">Explore Our Services</a>
       </div>
     </div>
     <div class="browser fade-up d2">
@@ -393,7 +402,7 @@ footer{border-top:1px solid var(--line);padding-block:56px 120px}
     <div class="sec-head">
       <div class="eyebrow">Services</div>
       <h2>What can we build for you?</h2>
-      <p>From simple landing pages to complete business websites, we build according to your needs.</p>
+      <p>From simple landing pages to complete business websites, we build according to your needs. Open any live demo to see the result.</p>
     </div>
     <div class="grid g3">
       <article class="card"><div class="ico">🌐</div><h3>Business Website</h3><p>Professional website for your business, service or company.</p><div class="from"><span>Starting ₹3,000+</span><a href="https://preetpate.github.io/Business/" target="_blank" rel="noopener">View live demo →</a></div></article>
@@ -402,42 +411,6 @@ footer{border-top:1px solid var(--line);padding-block:56px 120px}
       <article class="card"><div class="ico">🍽️</div><h3>Restaurant</h3><p>Menu, gallery, location, contact and online presence.</p><div class="from"><span>Starting ₹3,000+</span><a href="https://rastaurant-rfty.onrender.com/" target="_blank" rel="noopener">View live demo →</a></div></article>
       <article class="card"><div class="ico">🛒</div><h3>E-Commerce</h3><p>Product-focused websites for small businesses and online sellers.</p><div class="from"><span>Starting ₹7,000+</span><a href="https://preetpate.github.io/Shop/" target="_blank" rel="noopener">View live demo →</a></div></article>
       <article class="card"><div class="ico">⚙️</div><h3>Custom</h3><p>Have a different idea? Let's discuss it.</p><div class="from"><span>Starting ₹7,000+</span><a href="https://preetpate.github.io/Custom/" target="_blank" rel="noopener">View live demo →</a></div></article>
-    </div>
-  </div>
-</section>
-
-<section id="work" style="padding-top:24px">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="eyebrow">Selected work</div>
-      <h2>Our Work</h2>
-      <p>Live websites and apps you can open and try. Sample projects are marked.</p>
-    </div>
-    <div class="work">
-      <article class="proj">
-        <div class="wt" style="--w1:#b45309;--w2:#7c2d12"><span>Prime<br>Restaurant</span><small>Italian · Punjabi · Gujarati · Mexican</small></div>
-        <div class="body"><h3>Prime Restaurant</h3><p>A restaurant website with a multi-cuisine menu and a clear online presence.</p><div class="tags">Restaurant • Menu • Responsive</div><a class="lnk" href="https://rastaurant-rfty.onrender.com/" target="_blank" rel="noopener">Open website →</a></div>
-      </article>
-      <article class="proj">
-        <div class="wt" style="--w1:#7c3aed;--w2:#2563eb"><span>Prit<br>Portfolio</span><small>Personal portfolio</small></div>
-        <div class="body"><h3>Prit Portfolio</h3><p>A personal portfolio website that presents projects, skills and contact details.</p><div class="tags">Portfolio • Responsive</div><a class="lnk" href="https://preetpate.github.io/Prit-Portfolio/" target="_blank" rel="noopener">Open website →</a></div>
-      </article>
-      <article class="proj">
-        <div class="wt" style="--w1:#0b3d2e;--w2:#14594a"><span>Chai &amp; Co</span><small>Sample online store</small></div>
-        <div class="body"><h3>Chai &amp; Co <em class="smp">Sample</em></h3><p>An online store with category filters, a working cart and an order form.</p><div class="tags">E-Commerce • Cart • Checkout</div><a class="lnk" href="https://preetpate.github.io/Shop/" target="_blank" rel="noopener">Open website →</a></div>
-      </article>
-      <article class="proj">
-        <div class="wt" style="--w1:#0f2742;--w2:#173a63"><span>Sharma &amp;<br>Rao</span><small>Sample business website</small></div>
-        <div class="body"><h3>Sharma &amp; Rao <em class="smp">Sample</em></h3><p>A business website with services, process and a consultation request form.</p><div class="tags">Business • Forms • Responsive</div><a class="lnk" href="https://preetpate.github.io/Business/" target="_blank" rel="noopener">Open website →</a></div>
-      </article>
-      <article class="proj">
-        <div class="wt" style="--w1:#1f7a5a;--w2:#0f5a41"><span>Focusly</span><small>Sample landing page</small></div>
-        <div class="body"><h3>Focusly <em class="smp">Sample</em></h3><p>A product landing page with features, pricing, FAQ and a waitlist form.</p><div class="tags">Landing • Pricing • Waitlist</div><a class="lnk" href="https://preetpate.github.io/Landing-Page/" target="_blank" rel="noopener">Open website →</a></div>
-      </article>
-      <article class="proj">
-        <div class="wt" style="--w1:#0e1116;--w2:#1c3b32"><span>Stockroom</span><small>Sample custom web app</small></div>
-        <div class="body"><h3>Stockroom <em class="smp">Sample</em></h3><p>An inventory app with login, product management and low-stock alerts.</p><div class="tags">Web App • Login • Dashboard</div><a class="lnk" href="https://preetpate.github.io/Custom/" target="_blank" rel="noopener">Open app →</a></div>
-      </article>
     </div>
   </div>
 </section>
@@ -501,6 +474,11 @@ footer{border-top:1px solid var(--line);padding-block:56px 120px}
         <ul><li>Custom Features</li><li>Database</li><li>Authentication</li><li>API Integration</li><li>Advanced UI</li><li>Project Documentation</li></ul>
         <button class="btn btn-ghost" data-open data-need="Custom Website" data-budget="₹10,000+">Discuss Project →</button>
       </article>
+    </div>
+    <div class="offer">
+      <div class="ot"><div class="ob"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 21V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></div>
+        <div><b>Free deployment on websites of ₹10,000 and above.</b><span class="d">We put your website online for you at no extra cost.</span></div></div>
+      <button class="btn btn-primary" data-open data-need="Custom Website" data-budget="₹10,000+">Start a ₹10,000+ project →</button>
     </div>
   </div>
 </section>
@@ -588,7 +566,7 @@ footer{border-top:1px solid var(--line);padding-block:56px 120px}
   <div class="wrap foot">
     <a class="logo" href="#top" aria-label="DP Studio home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" class="mk" aria-hidden="true"><defs><linearGradient id="gn2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8b5cf6"/><stop offset="1" stop-color="#2563eb"/></linearGradient></defs><rect width="40" height="40" rx="10" fill="url(#gn2)"/><path fill="#fff" fill-rule="evenodd" d="M8 7H20A13 13 0 0 1 20 33H8Z M14 12H21A5.5 5.5 0 0 1 21 23H18.5V29H14Z M18.5 15.5H21A2.5 2.5 0 0 1 21 20.5H18.5Z"/></svg><span class="lt"><b>DP<i>.</i></b><small>STUDIO</small></span></a>
     <p class="tl">Your Idea. Our Code. One Powerful Website.</p>
-    <nav aria-label="Footer"><a href="#services">Services</a><a href="#work">Work</a><a href="#product">Pre-Agent</a><a href="#pricing">Pricing</a><a href="#process">Process</a><a href="#" data-open>Contact</a></nav>
+    <nav aria-label="Footer"><a href="#services">Services</a><a href="#product">Pre-Agent</a><a href="#pricing">Pricing</a><a href="#process">Process</a><a href="#" data-open>Contact</a></nav>
     <div class="soc"><a id="waFoot" href="#" target="_blank" rel="noopener">Chat on WhatsApp →</a></div>
     <small>© 2026 DP Studio · Built by Dev &amp; Preet.</small>
   </div>
