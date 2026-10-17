@@ -867,37 +867,39 @@ footer{border-top:1px solid var(--line);padding-block:56px 120px}
 
 <script>
 /* ── Welcome Voice ───────────────────────────────────────────────────
-   Says "Welcome to DP Studio" on first user interaction.
-   Uses Web Speech API — no audio file needed, works on laptop & phone.
+   Button appears after 2s. Click → "Welcome to DP Studio" voice plays.
+   Uses Web Speech API — no audio file needed, works on all devices.
 ──────────────────────────────────────────────────────────────────── */
 (function(){
-  if(!window.speechSynthesis) return;
-  var spoken = false;
+  var btn = document.getElementById("voiceBtn");
+  if(!btn || !window.speechSynthesis) return;
+
+  // Show button after 2 seconds
+  setTimeout(function(){ btn.hidden = false; }, 2000);
+
   function speak(){
-    if(spoken) return; spoken = true;
-    function fire(){
-      var u = new SpeechSynthesisUtterance("Welcome to D P Studio");
-      u.rate = 0.9; u.pitch = 1.05; u.volume = 1;
-      var voices = window.speechSynthesis.getVoices();
-      var en = voices.find(function(v){ return /en-US|en-GB|en-IN/i.test(v.lang); })
+    window.speechSynthesis.cancel(); // stop any previous
+    var u = new SpeechSynthesisUtterance("Welcome to D P Studio");
+    u.rate = 0.88; u.pitch = 1.1; u.volume = 1;
+    // Pick best English voice available
+    var voices = window.speechSynthesis.getVoices();
+    var pick = voices.find(function(v){ return /en-IN/i.test(v.lang); })
+            || voices.find(function(v){ return /en-US/i.test(v.lang); })
+            || voices.find(function(v){ return /en-GB/i.test(v.lang); })
             || voices.find(function(v){ return v.lang.startsWith("en"); });
-      if(en) u.voice = en;
-      window.speechSynthesis.speak(u);
-    }
-    // Voices may not be loaded yet — wait for them
+    if(pick) u.voice = pick;
+    u.onend = function(){ btn.hidden = true; }; // hide after playing
+    window.speechSynthesis.speak(u);
+  }
+
+  btn.addEventListener("click", function(){
+    // Voices load async on some browsers
     if(window.speechSynthesis.getVoices().length){
-      fire();
+      speak();
     } else {
-      window.speechSynthesis.addEventListener("voiceschanged", fire, {once:true});
+      window.speechSynthesis.addEventListener("voiceschanged", speak, {once:true});
     }
-  }
-  // Trigger on very first interaction (browser autoplay policy)
-  var evts = ["click","keydown","touchstart","scroll"];
-  function onFirst(){
-    evts.forEach(function(e){ document.removeEventListener(e,onFirst); });
-    speak();
-  }
-  evts.forEach(function(e){ document.addEventListener(e,onFirst,{once:true,passive:true}); });
+  });
 })();
 </script>
 
