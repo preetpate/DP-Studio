@@ -872,9 +872,9 @@ footer{border-top:1px solid var(--line);padding-block:56px 120px}
 /* ── Welcome Voice — preloaded for instant response ── */
 (function(){
   var btn = document.getElementById("voiceBtn");
+  var txt = document.getElementById("voiceTxt");
   if(!btn || !window.speechSynthesis) return;
 
-  // Preload voices immediately on page load
   var cachedVoice = null;
   function loadVoice(){
     var voices = window.speechSynthesis.getVoices();
@@ -892,9 +892,8 @@ footer{border-top:1px solid var(--line);padding-block:56px 120px}
     var u = new SpeechSynthesisUtterance("Welcome to D P Studio");
     u.rate = 0.88; u.pitch = 1.1; u.volume = 1;
     if(cachedVoice) u.voice = cachedVoice;
-    var em = btn.querySelector("em");
-    if(em) em.textContent = "Playing…";
-    u.onend = function(){ if(em) em.textContent = "Tap to hear again"; };
+    if(txt) txt.textContent = "Playing…";
+    u.onend = function(){ if(txt) txt.textContent = "Welcome"; };
     window.speechSynthesis.speak(u);
   }
 
