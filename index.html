@@ -855,6 +855,42 @@ footer{border-top:1px solid var(--line);padding-block:56px 120px}
 </div>
 
 <script>
+/* ── Welcome Voice ───────────────────────────────────────────────────
+   Says "Welcome to DP Studio" on first user interaction.
+   Uses Web Speech API — no audio file needed, works on laptop & phone.
+──────────────────────────────────────────────────────────────────── */
+(function(){
+  if(!window.speechSynthesis) return;
+  var spoken = false;
+  function speak(){
+    if(spoken) return; spoken = true;
+    function fire(){
+      var u = new SpeechSynthesisUtterance("Welcome to D P Studio");
+      u.rate = 0.9; u.pitch = 1.05; u.volume = 1;
+      var voices = window.speechSynthesis.getVoices();
+      var en = voices.find(function(v){ return /en-US|en-GB|en-IN/i.test(v.lang); })
+            || voices.find(function(v){ return v.lang.startsWith("en"); });
+      if(en) u.voice = en;
+      window.speechSynthesis.speak(u);
+    }
+    // Voices may not be loaded yet — wait for them
+    if(window.speechSynthesis.getVoices().length){
+      fire();
+    } else {
+      window.speechSynthesis.addEventListener("voiceschanged", fire, {once:true});
+    }
+  }
+  // Trigger on very first interaction (browser autoplay policy)
+  var evts = ["click","keydown","touchstart","scroll"];
+  function onFirst(){
+    evts.forEach(function(e){ document.removeEventListener(e,onFirst); });
+    speak();
+  }
+  evts.forEach(function(e){ document.addEventListener(e,onFirst,{once:true,passive:true}); });
+})();
+</script>
+
+<script>
 (function(){
   /* ── Settings ─────────────────────────────────────────────────────── */
   var WA_NUMBER  = "";               // e.g. "919876543210"
