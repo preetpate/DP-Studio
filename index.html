@@ -870,34 +870,30 @@ footer{border-top:1px solid var(--line);padding-block:56px 120px}
 </div>
 
 <script>
-/* ── Welcome Voice ───────────────────────────────────────────────────
-   Button appears after 2s. Click → "Welcome to DP Studio" voice plays.
-   Uses Web Speech API — no audio file needed, works on all devices.
-──────────────────────────────────────────────────────────────────── */
+/* ── Welcome Voice ── */
 (function(){
   var btn = document.getElementById("voiceBtn");
   if(!btn || !window.speechSynthesis) return;
 
-  // Show button after 2 seconds
-  setTimeout(function(){ btn.hidden = false; }, 2000);
-
   function speak(){
-    window.speechSynthesis.cancel(); // stop any previous
+    window.speechSynthesis.cancel();
     var u = new SpeechSynthesisUtterance("Welcome to D P Studio");
     u.rate = 0.88; u.pitch = 1.1; u.volume = 1;
-    // Pick best English voice available
     var voices = window.speechSynthesis.getVoices();
     var pick = voices.find(function(v){ return /en-IN/i.test(v.lang); })
             || voices.find(function(v){ return /en-US/i.test(v.lang); })
             || voices.find(function(v){ return /en-GB/i.test(v.lang); })
             || voices.find(function(v){ return v.lang.startsWith("en"); });
     if(pick) u.voice = pick;
-    u.onend = function(){ btn.hidden = true; }; // hide after playing
+    var em = btn.querySelector("em");
+    if(em) em.textContent = "Playing…";
+    u.onend = function(){
+      if(em) em.textContent = "Tap to hear again";
+    };
     window.speechSynthesis.speak(u);
   }
 
   btn.addEventListener("click", function(){
-    // Voices load async on some browsers
     if(window.speechSynthesis.getVoices().length){
       speak();
     } else {
